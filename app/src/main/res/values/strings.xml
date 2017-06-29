@@ -4,5 +4,9 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!-- Validaciones -->
+    <string name="no_internet_connection">Sin conexión a Internet</string>
+    <string name="connection_server_error">Error en la conexión a los servidores</string>
+
     <string name="action_settings">Settings</string>
 </resources>
