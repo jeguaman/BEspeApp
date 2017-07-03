@@ -18,6 +18,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.teamj.joseguaman.bespeapp.fragments.EntradaFragment;
+import com.teamj.joseguaman.bespeapp.fragments.MainFragment;
+import com.teamj.joseguaman.bespeapp.fragments.PrimerPisoFragment;
+import com.teamj.joseguaman.bespeapp.fragments.SegundoPisoFragment;
+import com.teamj.joseguaman.bespeapp.fragments.TercerPisoFragment;
 import com.teamj.joseguaman.bespeapp.utils.Tools;
 
 public class MainActivity extends AppCompatActivity
@@ -32,15 +36,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -89,40 +84,66 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         // Handle navigation view item clicks here.
         FragmentManager fragmentManager = getFragmentManager();
 
         switch (id) {
 
-            case R.id.nav_principal:
-
-                break;
-
-            case R.id.nav_entrada:
+            case R.id.nav_principal: {
                 setTitle(Tools.parseTitle(item.getTitle().toString()));
-                //getCultivosSharedPreferences().setProductorLastNavId(id);
-                Fragment fragment = new EntradaFragment();
+                Fragment fragment = new MainFragment();
                 fragmentManager.beginTransaction()
-                        //.replace(R.id.frame_content, fragment)
+                        .replace(R.id.frame_container, fragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         //.addToBackStack(null) //se añade al backstack, es decir cuando aplaste el boton de atras
                         .commit();
-
-
                 break;
+            }
 
-
-            case R.id.nav_primer_piso:
-
+            case R.id.nav_entrada: {
+                setTitle(Tools.parseTitle(item.getTitle().toString()));
+                Fragment fragment = new EntradaFragment();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_container, fragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        //.addToBackStack(null) //se añade al backstack, es decir cuando aplaste el boton de atras
+                        .commit();
                 break;
+            }
 
-            case R.id.nav_segundo_piso:
+            case R.id.nav_primer_piso: {
+                setTitle(Tools.parseTitle(item.getTitle().toString()));
+                Fragment fragment = new PrimerPisoFragment();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_container, fragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        //.addToBackStack(null) //se añade al backstack, es decir cuando aplaste el boton de atras
+                        .commit();
                 break;
+            }
 
-
-            case R.id.nav_tercer_piso:
+            case R.id.nav_segundo_piso: {
+                setTitle(Tools.parseTitle(item.getTitle().toString()));
+                Fragment fragment = new SegundoPisoFragment();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_container, fragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        //.addToBackStack(null) //se añade al backstack, es decir cuando aplaste el boton de atras
+                        .commit();
                 break;
+            }
+
+
+            case R.id.nav_tercer_piso: {
+                setTitle(Tools.parseTitle(item.getTitle().toString()));
+                Fragment fragment = new TercerPisoFragment();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_container, fragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        //.addToBackStack(null) //se añade al backstack, es decir cuando aplaste el boton de atras
+                        .commit();
+                break;
+            }
 
             default:
                 Log.e(TAG, "Opción no válida");
