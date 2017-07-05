@@ -19,15 +19,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.teamj.joseguaman.bespeapp.R;
 import com.teamj.joseguaman.bespeapp.adapter.MainAdapter;
 import com.teamj.joseguaman.bespeapp.fragments.dialog.LugaresInfoDialog;
 import com.teamj.joseguaman.bespeapp.listener.RecyclerItemClickListener;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.Area;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.Lugar;
+import com.teamj.joseguaman.bespeapp.modelo.beacon.WSResponse;
 import com.teamj.joseguaman.bespeapp.modelo.util.DialogInformacion;
 import com.teamj.joseguaman.bespeapp.utils.ConnectionDetector;
 import com.teamj.joseguaman.bespeapp.utils.Tools;
+import com.teamj.joseguaman.bespeapp.webService.LugaresrestClient;
 import com.teamj.joseguaman.bespeapp.webService.WSBeacon;
 
 import org.greenrobot.eventbus.EventBus;
@@ -100,6 +104,19 @@ public class MainFragment extends Fragment {
     public void loadData() {
         List<Lugar> listaLugar = new ArrayList<>();
         //TODO: poner todo lo dela consulta que se traiga del webservice
+
+        LugaresrestClient lrc= new LugaresrestClient(getActivity());
+        lrc.getCicloProductoresSincroIds("", "", "", "", "", new Response.Listener<WSResponse>() {
+            @Override
+            public void onResponse(WSResponse response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
 
 
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic_menu_camera);

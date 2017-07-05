@@ -23,6 +23,7 @@ import com.teamj.joseguaman.bespeapp.fragments.PrimerPisoFragment;
 import com.teamj.joseguaman.bespeapp.fragments.SegundoPisoFragment;
 import com.teamj.joseguaman.bespeapp.fragments.TercerPisoFragment;
 import com.teamj.joseguaman.bespeapp.utils.Tools;
+import com.teamj.joseguaman.bespeapp.webService.restClientBase.VolleyRequest;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        VolleyRequest.init(this);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
