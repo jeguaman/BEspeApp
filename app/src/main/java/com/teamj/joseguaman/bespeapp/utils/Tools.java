@@ -1,6 +1,7 @@
 package com.teamj.joseguaman.bespeapp.utils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -257,4 +258,15 @@ public class Tools {
         }
         return false;
     }
+
+    public static void showSimpleMessageDialog(Context context, String message) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(message)
+                .setPositiveButton("Aceptar", null)
+                .setCancelable(false);
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
 }

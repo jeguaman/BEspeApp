@@ -1,10 +1,10 @@
 package com.teamj.joseguaman.bespeapp.webService;
 
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+//import com.squareup.okhttp.FormEncodingBuilder;
+//import com.squareup.okhttp.OkHttpClient;
+//import com.squareup.okhttp.Request;
+//import com.squareup.okhttp.RequestBody;
+//import com.squareup.okhttp.Response;
 import com.teamj.joseguaman.bespeapp.constantes.Constant;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class WSBeacon {
 
-    public static String registroAreaEnDispositivo(String idArea, String imeiDispositivo) throws IOException {
+    /*public static String registroAreaEnDispositivo(String idArea, String imeiDispositivo) throws IOException {
         OkHttpClient client = new OkHttpClient();
         RequestBody formBody = new FormEncodingBuilder().add("id_area", idArea)
                 .add("imei", imeiDispositivo).build();
@@ -162,5 +162,5 @@ public class WSBeacon {
         } else {
             return null;
         }
-    }
+    }*/
 }
