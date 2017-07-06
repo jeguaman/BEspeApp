@@ -1,18 +1,11 @@
 package com.teamj.joseguaman.bespeapp.fragments;
 
 
-import android.app.AlertDialog;
 import android.app.DialogFragment;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,14 +23,9 @@ import com.teamj.joseguaman.bespeapp.modelo.beacon.Lugar;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.WSResponse;
 import com.teamj.joseguaman.bespeapp.modelo.util.DialogInformacion;
 import com.teamj.joseguaman.bespeapp.utils.ConnectionDetector;
-import com.teamj.joseguaman.bespeapp.utils.Tools;
-import com.teamj.joseguaman.bespeapp.webService.LugaresrestClient;
-import com.teamj.joseguaman.bespeapp.webService.WSBeacon;
+import com.teamj.joseguaman.bespeapp.webService.LugaresRestClient;
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +93,7 @@ public class MainFragment extends Fragment {
         List<Lugar> listaLugar = new ArrayList<>();
         //TODO: poner todo lo dela consulta que se traiga del webservice
 
-        LugaresrestClient lrc= new LugaresrestClient(getActivity());
+        LugaresRestClient lrc = new LugaresRestClient(getActivity());
         lrc.getCicloProductoresSincroIds("", "", "", "", "", new Response.Listener<WSResponse>() {
             @Override
             public void onResponse(WSResponse response) {

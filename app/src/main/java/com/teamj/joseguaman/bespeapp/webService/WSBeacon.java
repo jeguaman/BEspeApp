@@ -5,9 +5,7 @@ package com.teamj.joseguaman.bespeapp.webService;
 //import com.squareup.okhttp.Request;
 //import com.squareup.okhttp.RequestBody;
 //import com.squareup.okhttp.Response;
-import com.teamj.joseguaman.bespeapp.constantes.Constant;
 
-import java.io.IOException;
 
 /**
  * Created by Jose Guaman on 19/06/2017.
