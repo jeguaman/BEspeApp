@@ -70,6 +70,8 @@ public class MainFragment extends Fragment {
                     public void onItemClick(View view, int position) {
                         Lugar lugar = mMainAdapter.getItem(position);
                         idLugarSeleccionado = lugar.getLugarId();
+                        //TODO: consultar por id en un nuevo metodo
+
                         DialogInformacion mensaje = new DialogInformacion();
                         mensaje.setImage(R.drawable.ic_menu_camera);
 //                        mensaje.setMensaje(getResources().getString(R.string.metodologia_aviso_siembra));
@@ -94,7 +96,7 @@ public class MainFragment extends Fragment {
         //TODO: poner todo lo dela consulta que se traiga del webservice
 
         LugaresRestClient lrc = new LugaresRestClient(getActivity());
-        lrc.getCicloProductoresSincroIds("", "", "", "", "", new Response.Listener<WSResponse>() {
+        lrc.getLugaresPorArea("", new Response.Listener<WSResponse>() {
             @Override
             public void onResponse(WSResponse response) {
 

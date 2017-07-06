@@ -6,6 +6,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.teamj.joseguaman.bespeapp.R;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.WSResponse;
+import com.teamj.joseguaman.bespeapp.utils.Constants;
 import com.teamj.joseguaman.bespeapp.webService.restClientBase.GsonRequest;
 import com.teamj.joseguaman.bespeapp.webService.restClientBase.RestClientBase;
 
@@ -23,19 +24,13 @@ public class LugaresRestClient extends RestClientBase {
     }
 
 
-    public void getCicloProductoresSincroIds(String usuarioId, String equipoId, String perfil, String cicloId,
-                                             String listaSincroIdPorComas, Response.Listener<WSResponse> listener,
-                                             Response.ErrorListener errorListener) {
+    public void getLugaresPorArea(String idArea, Response.Listener<WSResponse> listener,
+                                  Response.ErrorListener errorListener) {
         Map<String, String> params = new HashMap<>();
         Map<String, String> header = new HashMap<>();
-        params.put("key", "");
-        params.put("usuarioId", usuarioId);
-        params.put("equipoId", equipoId);
-        params.put("perfil", perfil);
-        params.put("cicloId", cicloId);
-        params.put("listaSincroIdPorComas", listaSincroIdPorComas);
+        params.put("idArea", idArea);
 
-        GsonRequest<WSResponse> request = new GsonRequest<>(Request.Method.POST, "URL", WSResponse.class, header, params, listener, errorListener);
+        GsonRequest<WSResponse> request = new GsonRequest<>(Request.Method.POST, Constants.getURLLugaresPorIdAreaNoImagenesBytes(), WSResponse.class, header, params, listener, errorListener);
         executeRequest(request);
 
     }

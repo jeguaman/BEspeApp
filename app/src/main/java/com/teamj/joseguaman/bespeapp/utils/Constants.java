@@ -23,6 +23,32 @@ public class Constants {
         return $URL + $PATH_REGISTRO_NUEVO_MATCH;
     }
 
+    public static String getURLNotificacionesArea() {
+        return $URL + $PATH_NOTIFICACION_POR_AREA_TIPO;
+    }
 
+    public static String getURLLugaresPorIdAreaNoImagenesBytes() {
+        return $URL + $PATH_LUGARES_POR_ID_AREA_NO_BYTES;
+    }
+
+    public static String getURLAreaPorId() {
+        return $URL + $PATH_AREA_POR_ID;
+    }
+
+    public static String getURLLugarPorId() {
+        return $URL + $PATH_LUGAR_POR_ID;
+    }
+
+    public static String getURLLuagresPorUUID() {
+        return $URL + $PATH_LUGARES_POR_UUID;
+    }
+
+    public static String getURLAreasPorUUID() {
+        return $URL + $PATH_AREAS_POR_UUID;
+    }
+
+    public static String getURLImagenes() {
+        return $URL + $PATH_IMAGES;
+    }
 }
 
