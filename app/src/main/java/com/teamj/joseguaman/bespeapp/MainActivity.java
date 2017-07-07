@@ -4,10 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,11 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.teamj.joseguaman.bespeapp.fragments.EntradaFragment;
 import com.teamj.joseguaman.bespeapp.fragments.MainFragment;
-import com.teamj.joseguaman.bespeapp.fragments.PrimerPisoFragment;
-import com.teamj.joseguaman.bespeapp.fragments.SegundoPisoFragment;
-import com.teamj.joseguaman.bespeapp.fragments.TercerPisoFragment;
 import com.teamj.joseguaman.bespeapp.utils.Tools;
 import com.teamj.joseguaman.bespeapp.webService.restClientBase.VolleyRequest;
 
