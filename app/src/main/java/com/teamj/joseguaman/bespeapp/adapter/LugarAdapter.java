@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.teamj.joseguaman.bespeapp.R;
@@ -21,10 +20,10 @@ import butterknife.ButterKnife;
  * Created by Jose Guaman on 30/06/2017.
  */
 
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
+public class LugarAdapter extends RecyclerView.Adapter<LugarAdapter.ViewHolder> {
     private List<Lugar> mListaLugar = new ArrayList<>();
 
-    public MainAdapter(List<Lugar> lugarLista) {
+    public LugarAdapter(List<Lugar> lugarLista) {
         this.mListaLugar = lugarLista;
     }
 

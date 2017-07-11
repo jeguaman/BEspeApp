@@ -1,11 +1,13 @@
 package com.teamj.joseguaman.bespeapp.fragments;
 
 
-import android.app.DialogFragment;
+//import android.app.DialogFragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.app.Fragment;
+//import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,7 +17,7 @@ import android.view.ViewGroup;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.teamj.joseguaman.bespeapp.R;
-import com.teamj.joseguaman.bespeapp.adapter.MainAdapter;
+import com.teamj.joseguaman.bespeapp.adapter.LugarAdapter;
 import com.teamj.joseguaman.bespeapp.fragments.dialog.LugaresInfoDialog;
 import com.teamj.joseguaman.bespeapp.listener.RecyclerItemClickListener;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.Area;
@@ -24,6 +26,7 @@ import com.teamj.joseguaman.bespeapp.modelo.beacon.WSResponse;
 import com.teamj.joseguaman.bespeapp.modelo.util.DialogInformacion;
 import com.teamj.joseguaman.bespeapp.utils.ConnectionDetector;
 import com.teamj.joseguaman.bespeapp.webService.LugaresRestClient;
+
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -44,7 +47,7 @@ public class MainFragment extends Fragment {
 
     private View view;
     private Unbinder unbinder;
-    private MainAdapter mMainAdapter;
+    private LugarAdapter mMainAdapter;
     private ConnectionDetector mConnectionDetector;
     private int idLugarSeleccionado;
 
@@ -78,9 +81,15 @@ public class MainFragment extends Fragment {
                         mensaje.setMensaje("Esto es nuevo xD");
                         mensaje.setTitulo("Nuevo título con id  " + position);
                         EventBus.getDefault().postSticky(mensaje);
-                        DialogFragment dialog = new LugaresInfoDialog();
-                        dialog.setCancelable(false);//evita que se cierre al presionar el back button
-                        dialog.show(MainFragment.this.getChildFragmentManager(), MainFragment.class.getSimpleName());
+                        //manera de llamar
+                        FragmentManager fm = getChildFragmentManager();
+                        LugaresInfoDialog myDialogFragment = new LugaresInfoDialog();
+                        //myDialogFragment.show(fm, "dialog_fragment");
+                        myDialogFragment.show(fm, MainFragment.class.getSimpleName());
+
+//                        DialogFragment dialog = new LugaresInfoDialog();
+//                        dialog.setCancelable(false);//evita que se cierre al presionar el back button
+//                        dialog.show(MainFragment.this.getChildFragmentManager(), MainFragment.class.getSimpleName());
                     }
 
                     @Override
@@ -123,7 +132,7 @@ public class MainFragment extends Fragment {
         listaLugar.add(new Lugar(11, new Area(), "descripciom4", bm, "titulo4"));
         listaLugar.add(new Lugar(12, new Area(), "descripciom4", bm, "titulo4"));
 
-        mMainAdapter = new MainAdapter(listaLugar);
+        mMainAdapter = new LugarAdapter(listaLugar);
 
         mRecyclerView.setAdapter(mMainAdapter);
     }

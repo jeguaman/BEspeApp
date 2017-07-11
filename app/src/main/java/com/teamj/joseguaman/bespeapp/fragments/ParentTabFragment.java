@@ -22,14 +22,11 @@ public class ParentTabFragment extends Fragment {
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private ViewPagerAdapter mAdapter;
-
-    int selectedTabPosition;
-
+    private int selectedTabPosition;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tab_parent, container, false);
         getIDs(view);
         setEvents();
@@ -37,10 +34,10 @@ public class ParentTabFragment extends Fragment {
     }
 
     private void getIDs(View view) {
-//        viewPager = (ViewPager) view.findViewById(R.id.my_viewpager);
-//        tabLayout = (TabLayout) view.findViewById(R.id.my_tab_layout);
-//        mAdapter = new ViewPagerAdapter(getFragmentManager(), getActivity(), mViewPager, tabLayout);
-//        viewPager.setAdapter(adapter);
+        mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        mTabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
+        mAdapter = new ViewPagerAdapter(getFragmentManager(), getActivity(), mViewPager, mTabLayout);
+        mViewPager.setAdapter(mAdapter);
     }
 
     private void setEvents() {
@@ -62,6 +59,7 @@ public class ParentTabFragment extends Fragment {
         });
     }
 
+    //public void addPage(Lugar lugar) { //objeto
     public void addPage(String pagename) {
         Bundle bundle = new Bundle();
         bundle.putString("data", pagename);
@@ -70,7 +68,6 @@ public class ParentTabFragment extends Fragment {
         mAdapter.addNewFragment(fragmentChild, pagename);
         mAdapter.notifyDataSetChanged();
         if (mAdapter.getCount() > 0) mTabLayout.setupWithViewPager(mViewPager);
-
         mViewPager.setCurrentItem(mAdapter.getCount() - 1);
         setupTabLayout();
     }
