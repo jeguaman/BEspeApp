@@ -6,13 +6,13 @@ import java.io.Serializable;
  * Created by Jose Guaman on 20/06/2017.
  */
 
-public class WSResponse implements Serializable{
+public class WSResponse implements Serializable {
     private boolean state;
-    private Object objectResponse;
+    private Object entity;
 
-    public WSResponse(boolean state, Object objectResponse) {
+    public WSResponse(boolean state, Object entity) {
         this.state = state;
-        this.objectResponse = objectResponse;
+        this.entity = entity;
     }
 
     public WSResponse() {
@@ -27,19 +27,19 @@ public class WSResponse implements Serializable{
         this.state = state;
     }
 
-    public Object getObjectResponse() {
-        return objectResponse;
+    public Object getEntity() {
+        return entity;
     }
 
-    public void setObjectResponse(Object objectResponse) {
-        this.objectResponse = objectResponse;
+    public void setEntity(Object entity) {
+        this.entity = entity;
     }
 
     @Override
     public String toString() {
         return "WSResponse{" +
                 "state=" + state +
-                ", objectResponse=" + objectResponse +
+                ", entity=" + entity +
                 '}';
     }
 }

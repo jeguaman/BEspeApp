@@ -10,6 +10,8 @@ import android.view.MenuItem;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.teamj.joseguaman.bespeapp.fragments.ParentTabFragment;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.Area;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.Lugar;
@@ -25,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     ParentTabFragment fragmentParent;
-    //TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,22 +67,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setEvents() {
-        List<Area> listaAreas = new ArrayList<>();
+        final List<Area> listaAreas = new ArrayList<>();
+        final Gson gson = new Gson();
         AreaRestClient lrc = new AreaRestClient(this);
         lrc.obtenerTodasAreas(new Response.Listener<WSResponse>() {
             @Override
             public void onResponse(WSResponse response) {
-
+                TypeToken<List<Area>> token = new TypeToken<List<Area>>() {
+                };
+                listaAreas.addAll((ArrayList<Area>) response.getEntity());
+                System.out.println(listaAreas.size());
+                for (int i = 0; i < listaAreas.size(); i++) {
+                    fragmentParent.addPage(listaAreas.get(i));
+                }
+                //listaAreas = gson.fromJson(s, token.getType());
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                System.out.println("El error es: ");
+                System.out.println(error);
             }
         });
 
 
-        List<Area> listaArea = new ArrayList<>();
+        /*List<Area> listaArea = new ArrayList<>();
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic_menu_camera);
         listaArea.add(new Area(1, "Area 1", "", bm));
         listaArea.add(new Area(2, "Area 2", "", bm));
@@ -91,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < listaArea.size(); i++) {
             fragmentParent.addPage(listaArea.get(i));
-        }
+        }*/
 
     }
 }

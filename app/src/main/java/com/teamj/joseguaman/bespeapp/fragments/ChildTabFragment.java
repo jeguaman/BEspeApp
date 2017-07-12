@@ -26,6 +26,7 @@ import com.teamj.joseguaman.bespeapp.modelo.beacon.Lugar;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.WSResponse;
 import com.teamj.joseguaman.bespeapp.modelo.util.DialogInformacion;
 import com.teamj.joseguaman.bespeapp.utils.ConnectionDetector;
+import com.teamj.joseguaman.bespeapp.utils.Constants;
 import com.teamj.joseguaman.bespeapp.webService.LugaresRestClient;
 
 import org.greenrobot.eventbus.EventBus;
@@ -52,7 +53,7 @@ public class ChildTabFragment extends Fragment {
     private LugarAdapter mMainAdapter;
     private ConnectionDetector mConnectionDetector;
     private int idLugarSeleccionado;
-    private String childname;
+    private Area areaSeleccionada;
 
     @Nullable
     @Override
@@ -60,13 +61,12 @@ public class ChildTabFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_tab_child, container, false);
         Bundle bundle = getArguments();
-        childname = bundle.getString("data");
-        Toast.makeText(getActivity(), "el nombre enviado es:" + childname, Toast.LENGTH_SHORT).show();
+        areaSeleccionada = (Area) bundle.getSerializable(Constants.$BUNDLE_AREA);
         unbinder = ButterKnife.bind(this, view);
         mConnectionDetector = new ConnectionDetector(getActivity());
         setHasOptionsMenu(true);
         initLayout();
-        loadData();
+        loadData(areaSeleccionada.getAreaId());
 
         return view;
     }
@@ -103,7 +103,7 @@ public class ChildTabFragment extends Fragment {
         );
     }
 
-    public void loadData() {
+    public void loadData(int size) {
         List<Lugar> listaLugar = new ArrayList<>();
         //TODO: poner todo lo dela consulta que se traiga del webservice
 
@@ -122,14 +122,9 @@ public class ChildTabFragment extends Fragment {
 
 
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic_menu_camera);
-        listaLugar.add(new Lugar(1, new Area(), "descripciom1", bm, "titulo1"));
-        listaLugar.add(new Lugar(2, new Area(), "descripciom2", bm, "titulo2"));
-        listaLugar.add(new Lugar(3, new Area(), "descripciom3", bm, "titulo3"));
-        listaLugar.add(new Lugar(4, new Area(), "descripciom4", bm, "titulo4"));
-        listaLugar.add(new Lugar(5, new Area(), "descripciom4", bm, "titulo4"));
-        listaLugar.add(new Lugar(6, new Area(), "descripciom4", bm, "titulo4"));
-        listaLugar.add(new Lugar(7, new Area(), "descripciom4", bm, "titulo4"));
-        listaLugar.add(new Lugar(8, new Area(), "descripciom4", bm, "titulo4"));
+        for (int i = 0; i < size; i++) {
+            listaLugar.add(new Lugar(i + 1, new Area(), "descripcion" + (i + 1), bm, "titulo" + (i + 1)));
+        }
 
         mMainAdapter = new LugarAdapter(listaLugar);
 
