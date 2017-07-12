@@ -4,6 +4,7 @@ package com.teamj.joseguaman.bespeapp.fragments;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -59,6 +61,7 @@ public class ChildTabFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_tab_child, container, false);
         Bundle bundle = getArguments();
         childname = bundle.getString("data");
+        Toast.makeText(getActivity(), "el nombre enviado es:" + childname, Toast.LENGTH_SHORT).show();
         unbinder = ButterKnife.bind(this, view);
         mConnectionDetector = new ConnectionDetector(getActivity());
         setHasOptionsMenu(true);
@@ -127,10 +130,6 @@ public class ChildTabFragment extends Fragment {
         listaLugar.add(new Lugar(6, new Area(), "descripciom4", bm, "titulo4"));
         listaLugar.add(new Lugar(7, new Area(), "descripciom4", bm, "titulo4"));
         listaLugar.add(new Lugar(8, new Area(), "descripciom4", bm, "titulo4"));
-        listaLugar.add(new Lugar(9, new Area(), "descripciom4", bm, "titulo4"));
-        listaLugar.add(new Lugar(10, new Area(), "descripciom4", bm, "titulo4"));
-        listaLugar.add(new Lugar(11, new Area(), "descripciom4", bm, "titulo4"));
-        listaLugar.add(new Lugar(12, new Area(), "descripciom4", bm, "titulo4"));
 
         mMainAdapter = new LugarAdapter(listaLugar);
 

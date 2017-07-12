@@ -9,9 +9,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.teamj.joseguaman.bespeapp.R;
 import com.teamj.joseguaman.bespeapp.adapter.ViewPagerAdapter;
+import com.teamj.joseguaman.bespeapp.modelo.beacon.Area;
+import com.teamj.joseguaman.bespeapp.modelo.beacon.Lugar;
 
 /**
  * Created by Jose Guaman on 06/07/2017.
@@ -41,14 +44,15 @@ public class ParentTabFragment extends Fragment {
     }
 
     private void setEvents() {
-
         mTabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 super.onTabSelected(tab);
                 mViewPager.setCurrentItem(tab.getPosition());
                 selectedTabPosition = mViewPager.getCurrentItem();
+                Log.d("el objeto es : ", "Objeto " + mAdapter.getItem(tab.getPosition()).toString());
                 Log.d("Selected", "Selected " + tab.getPosition());
+//                Toast.makeText(getActivity(), tab.getPosition(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -59,13 +63,12 @@ public class ParentTabFragment extends Fragment {
         });
     }
 
-    //public void addPage(Lugar lugar) { //objeto
-    public void addPage(String pagename) {
+    public void addPage(Area area) {
         Bundle bundle = new Bundle();
-        bundle.putString("data", pagename);
+        bundle.putString("data", area.getTitulo());
         ChildTabFragment fragmentChild = new ChildTabFragment();
         fragmentChild.setArguments(bundle);
-        mAdapter.addNewFragment(fragmentChild, pagename);
+        mAdapter.addNewFragment(fragmentChild, area.getTitulo());
         mAdapter.notifyDataSetChanged();
         if (mAdapter.getCount() > 0) mTabLayout.setupWithViewPager(mViewPager);
         mViewPager.setCurrentItem(mAdapter.getCount() - 1);

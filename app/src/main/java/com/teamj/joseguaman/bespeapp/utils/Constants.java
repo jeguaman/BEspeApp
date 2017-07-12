@@ -12,6 +12,7 @@ public class Constants {
     private static final String $PATH_NOTIFICACION_POR_AREA_TIPO = "/BeaconWS/webresources/ws/traerNotificacionPorAreaTipo";
     private static final String $PATH_LUGARES_POR_ID_AREA_NO_BYTES = "/BeaconWS/webresources/ws/traerLugaresPorIdAreaNoBytes";
     private static final String $PATH_AREA_POR_ID = "/BeaconWS/webresources/ws/traerAreaPorId";
+    private static final String $PATH_AREAS = "/BeaconWS/webresources/ws/traerAreas";
     private static final String $PATH_LUGAR_POR_ID = "/BeaconWS/webresources/ws/traerLugarPorId";
     private static final String $PATH_LUGARES_POR_UUID = "/BeaconWS/webresources/ws/traerLugaresPorUUIDBeacon";
     private static final String $PATH_AREAS_POR_UUID = "/BeaconWS/webresources/ws/traerAreasPorUUIDBeacon";
@@ -49,6 +50,10 @@ public class Constants {
 
     public static String getURLImagenes() {
         return $URL + $PATH_IMAGES;
+    }
+
+    public static String getURLAreas() {
+        return $URL + $PATH_AREAS;
     }
 }
 

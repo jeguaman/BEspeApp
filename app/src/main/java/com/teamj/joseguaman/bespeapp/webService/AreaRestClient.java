@@ -32,4 +32,12 @@ public class AreaRestClient extends RestClientBase {
         GsonRequest<WSResponse> request = new GsonRequest<>(Request.Method.POST, Constants.getURLRegistroAreaDispositivo(), WSResponse.class, header, params, listener, errorListener);
         executeRequest(request);
     }
+
+    public void obtenerTodasAreas(Response.Listener<WSResponse> listener, Response.ErrorListener errorListener) {
+        Map<String, String> params = new HashMap<>();
+        Map<String, String> header = new HashMap<>();
+
+        GsonRequest<WSResponse> request = new GsonRequest<>(Request.Method.POST, Constants.getURLAreas(), WSResponse.class, header, params, listener, errorListener);
+        executeRequest(request);
+    }
 }

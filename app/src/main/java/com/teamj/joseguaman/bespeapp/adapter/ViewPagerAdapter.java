@@ -42,69 +42,29 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         this.tabLayout = tabLayout;
     }
 
-
     public void addNewFragment(Fragment fragment, String title) {
         mFragmentList.add(fragment);
         mFragmentTitleList.add(title);
     }
 
-    /**
-     * Return the Fragment associated with a specified position.
-     *
-     * @param position
-     */
     @Override
     public Fragment getItem(int position) {
         return mFragmentList.get(position);
     }
 
-    /**
-     * Return the number of views available.
-     */
     @Override
     public int getCount() {
         return mFragmentList.size();
     }
 
-    public void removeFrag(int position) {
-        removeTab(position);
-        Fragment fragment = mFragmentList.get(position);
-        mFragmentList.remove(fragment);
-        mFragmentTitleList.remove(position);
-        destroyFragmentView(viewPager, position, fragment);
-        notifyDataSetChanged();
-    }
-
     public View getTabView(final int position) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_tab_fragment, null);
-//        TextView tabItemName = (TextView) view.findViewById(R.id.textViewTabItemName);
-//        CircleImageView tabItemAvatar = (CircleImageView) view.findViewById(R.id.imageViewTabItemAvatar);
-//        ImageButton remove = (ImageButton) view.findViewById(R.id.imageButtonRemove);
-//        remove.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d("Remove", "Remove");
-//                removeFrag(position);
-//            }
-//        });
-
-//        tabItemName.setText(mFragmentTitleList.get(position));
-//        tabItemName.setTextColor(context.getResources().getColor(android.R.color.background_light));
+        TextView txtNombreTab = (TextView) view.findViewById(R.id.txt_nombre_tab);
+        //CircleImageView tabItemAvatar = (CircleImageView) view.findViewById(R.id.img_icon_tab);
+        txtNombreTab.setText(mFragmentTitleList.get(position));
+        txtNombreTab.setTextColor(context.getResources().getColor(android.R.color.black));
 
         return view;
-    }
-
-    public void destroyFragmentView(ViewGroup container, int position, Object object) {
-        FragmentManager manager = ((Fragment) object).getFragmentManager();
-        FragmentTransaction trans = manager.beginTransaction();
-        trans.remove((Fragment) object);
-        trans.commit();
-    }
-
-    public void removeTab(int position) {
-        if (tabLayout.getChildCount() > 0) {
-            tabLayout.removeTabAt(position);
-        }
     }
 
     @Override

@@ -5,27 +5,18 @@
     android:orientation="horizontal">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageViewTabItemAvatar"
+        android:id="@+id/img_icon_tab"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_gravity="center"
         android:src="@drawable/ic_menu_gallery" />
 
     <TextView
-        android:id="@+id/textViewTabItemName"
+        android:id="@+id/txt_nombre_tab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="10dp"
         android:text="Name" />
 
-    <ImageButton
-        android:id="@+id/imageButtonRemove"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="12dp"
-        android:background="@null"
-        android:src="@drawable/ic_cancel" />
 </LinearLayout>
