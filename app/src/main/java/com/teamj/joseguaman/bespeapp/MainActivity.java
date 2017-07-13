@@ -20,6 +20,7 @@ import com.teamj.joseguaman.bespeapp.webService.AreaRestClient;
 import com.teamj.joseguaman.bespeapp.webService.LugaresRestClient;
 import com.teamj.joseguaman.bespeapp.webService.restClientBase.VolleyRequest;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,12 +76,8 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(WSResponse response) {
                 TypeToken<List<Area>> token = new TypeToken<List<Area>>() {
                 };
-                listaAreas.addAll((ArrayList<Area>) response.getEntity());
-                System.out.println(listaAreas.size());
-                for (int i = 0; i < listaAreas.size(); i++) {
-                    fragmentParent.addPage(listaAreas.get(i));
-                }
-                //listaAreas = gson.fromJson(s, token.getType());
+                //listaAreas = (List<Area>) gson.fromJson(response.getJsonEntity(), token);
+
             }
         }, new Response.ErrorListener() {
             @Override

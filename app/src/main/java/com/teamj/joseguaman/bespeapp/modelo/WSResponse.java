@@ -8,11 +8,11 @@ import java.io.Serializable;
 
 public class WSResponse implements Serializable {
     private boolean state;
-    private Object entity;
+    private String jsonEntity;
 
-    public WSResponse(boolean state, Object entity) {
+    public WSResponse(boolean state, String jsonEntity) {
         this.state = state;
-        this.entity = entity;
+        this.jsonEntity = jsonEntity;
     }
 
     public WSResponse() {
@@ -27,19 +27,19 @@ public class WSResponse implements Serializable {
         this.state = state;
     }
 
-    public Object getEntity() {
-        return entity;
+    public String getJsonEntity() {
+        return jsonEntity;
     }
 
-    public void setEntity(Object entity) {
-        this.entity = entity;
+    public void setJsonEntity(String jsonEntity) {
+        this.jsonEntity = jsonEntity;
     }
 
     @Override
     public String toString() {
         return "WSResponse{" +
                 "state=" + state +
-                ", entity=" + entity +
+                ", jsonEntity='" + jsonEntity + '\'' +
                 '}';
     }
 }
