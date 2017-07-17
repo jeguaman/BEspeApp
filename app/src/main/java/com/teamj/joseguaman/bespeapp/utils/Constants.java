@@ -8,7 +8,9 @@ public class Constants {
 
     //private static final String $URL = "http://192.168.2.83:8080";
     //private static final String $URL = "http://127.0.0.1:8080";
-    private static final String $URL = "http://192.168.2.58:8080";
+    //private static final String $URL = "http://192.168.2.58:8080";
+    //casa
+    private static final String $URL = "http://192.168.1.6:8080";
 
     private static final String $PATH_REGISTRO_NUEVO_MATCH = "/BeaconWS/webresources/ws/registrarAreaDispositivo";
     private static final String $PATH_NOTIFICACION_POR_AREA_TIPO = "/BeaconWS/webresources/ws/traerNotificacionPorAreaTipo";
@@ -18,6 +20,7 @@ public class Constants {
     private static final String $PATH_LUGAR_POR_ID = "/BeaconWS/webresources/ws/traerLugarPorId";
     private static final String $PATH_LUGARES_POR_UUID = "/BeaconWS/webresources/ws/traerLugaresPorUUIDBeacon";
     private static final String $PATH_AREAS_POR_UUID = "/BeaconWS/webresources/ws/traerAreasPorUUIDBeacon";
+    private static final String $PATH_IMAGEN_LUGAR_POR_ID = "/BeaconWS/webresources/ws/traerImagenLugarPorId";
     private static final String $PATH_IMAGES = "/media/";
 
     public static final String $BUNDLE_AREA = "area";
@@ -58,6 +61,10 @@ public class Constants {
 
     public static String getURLAreas() {
         return $URL + $PATH_AREAS_NO_IMAGEN;
+    }
+
+    public static String getURLImagenLugar() {
+        return $URL + $PATH_IMAGEN_LUGAR_POR_ID;
     }
 }
 

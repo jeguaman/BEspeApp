@@ -36,5 +36,16 @@ public class LugaresRestClient extends RestClientBase {
     }
 
 
+    public void getImagenPorIdLugar(String idLugar, Response.Listener<WSResponse> listener,
+                                    Response.ErrorListener errorListener) {
+        Map<String, String> params = new HashMap<>();
+        Map<String, String> header = new HashMap<>();
+        params.put("idLugar", idLugar);
+
+        GsonRequest<WSResponse> request = new GsonRequest<>(Request.Method.POST, Constants.getURLImagenLugar(), WSResponse.class, header, params, listener, errorListener);
+        executeRequest(request);
+
+    }
+
 }
 

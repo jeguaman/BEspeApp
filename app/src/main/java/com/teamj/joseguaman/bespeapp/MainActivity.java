@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         VolleyRequest.init(this);
         getIDs();
-        setEvents();
+        obtenerInformacionServidor();
 
     }
 
@@ -67,38 +68,31 @@ public class MainActivity extends AppCompatActivity {
         fragmentParent = (ParentTabFragment) this.getSupportFragmentManager().findFragmentById(R.id.fragmentParent);
     }
 
-    private void setEvents() {
-        final List<Area> listaAreas = new ArrayList<>();
-        final Gson gson = new Gson();
+    private void obtenerInformacionServidor() {
+
         AreaRestClient lrc = new AreaRestClient(this);
         lrc.obtenerTodasAreas(new Response.Listener<WSResponse>() {
             @Override
             public void onResponse(WSResponse response) {
+                List<Area> listaAreas = new ArrayList<>();
+                Gson gson = new Gson();
                 TypeToken<List<Area>> token = new TypeToken<List<Area>>() {
                 };
-                //listaAreas = (List<Area>) gson.fromJson(response.getJsonEntity(), token);
-
+                listaAreas = gson.fromJson(response.getJsonEntity(), token.getType());
+                loadInfo(listaAreas);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("El error es: ");
-                System.out.println(error);
+                Log.e(TAG, error.toString());
             }
         });
 
+    }
 
-        /*List<Area> listaArea = new ArrayList<>();
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic_menu_camera);
-        listaArea.add(new Area(1, "Area 1", "", bm));
-        listaArea.add(new Area(2, "Area 2", "", bm));
-        listaArea.add(new Area(3, "Area 3", "", bm));
-        listaArea.add(new Area(4, "Area 4", "", bm));
-        listaArea.add(new Area(5, "Area 5", "", bm));
-
-        for (int i = 0; i < listaArea.size(); i++) {
-            fragmentParent.addPage(listaArea.get(i));
-        }*/
-
+    private void loadInfo(List<Area> listaAreas) {
+        for (int i = 0; i < listaAreas.size(); i++) {
+            fragmentParent.addPage(listaAreas.get(i));
+        }
     }
 }

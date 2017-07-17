@@ -12,6 +12,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -67,7 +70,6 @@ public class ChildTabFragment extends Fragment {
         setHasOptionsMenu(true);
         initLayout();
         loadData(areaSeleccionada.getAreaId());
-
         return view;
     }
 
@@ -84,12 +86,12 @@ public class ChildTabFragment extends Fragment {
                         idLugarSeleccionado = lugar.getLugarId();
                         //TODO: consultar por id en un nuevo metodo
 
-                        DialogInformacion mensaje = new DialogInformacion();
-                        mensaje.setImage(R.drawable.ic_menu_camera);
-//                        mensaje.setMensaje(getResources().getString(R.string.metodologia_aviso_siembra));
-                        mensaje.setMensaje("Esto es nuevo xD");
-                        mensaje.setTitulo("Nuevo título con id  " + position);
-                        EventBus.getDefault().postSticky(mensaje);
+                        DialogInformacion dialogInfo = new DialogInformacion();
+                        dialogInfo.setImage(R.drawable.ic_menu_camera);
+//                        dialogInfo.setMensaje(getResources().getString(R.string.metodologia_aviso_siembra));
+                        dialogInfo.setMensaje(lugar.getDescripcion());
+                        dialogInfo.setTitulo(lugar.getTitulo() + idLugarSeleccionado);
+                        EventBus.getDefault().postSticky(dialogInfo);
                         DialogFragment dialog = new LugaresInfoDialog();
                         dialog.setCancelable(false);//evita que se cierre al presionar el back button
                         dialog.show(ChildTabFragment.this.getChildFragmentManager(), ChildTabFragment.class.getSimpleName());
@@ -103,15 +105,22 @@ public class ChildTabFragment extends Fragment {
         );
     }
 
-    public void loadData(int size) {
-        List<Lugar> listaLugar = new ArrayList<>();
-        //TODO: poner todo lo dela consulta que se traiga del webservice
+    private void loadInfoDialogo() {
+        //getImagenPorIdLugar
+    }
 
+    public void loadData(int idArea) {
         LugaresRestClient lrc = new LugaresRestClient(getActivity());
-        lrc.getLugaresPorArea("", new Response.Listener<WSResponse>() {
+        lrc.getLugaresPorArea(String.valueOf(idArea), new Response.Listener<WSResponse>() {
             @Override
             public void onResponse(WSResponse response) {
-
+                //TODO: Juanillo aqui es donde toca probar que se cargue los lugares por id de area
+                List<Lugar> listaLugar = new ArrayList<>();
+                Gson gson = new Gson();
+                TypeToken<List<Lugar>> token = new TypeToken<List<Lugar>>() {
+                };
+                listaLugar = gson.fromJson(response.getJsonEntity(), token.getType());
+                loadInfo(listaLugar);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -121,13 +130,17 @@ public class ChildTabFragment extends Fragment {
         });
 
 
+    }
+
+    private void loadInfo(List<Lugar> listaLugar) {
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic_menu_camera);
-        for (int i = 0; i < size; i++) {
-            listaLugar.add(new Lugar(i + 1, new Area(), "descripcion" + (i + 1), bm, "titulo" + (i + 1)));
+        for (int i = 0; i < listaLugar.size(); i++) {
+            listaLugar.get(i).setImagen(bm);
         }
-
+//        for (int i = 0; i < idArea; i++) {
+//            listaLugar.add(new Lugar(i + 1, new Area(), "descripcion" + (i + 1), bm, "titulo" + (i + 1)));
+//        }
         mMainAdapter = new LugarAdapter(listaLugar);
-
         mRecyclerView.setAdapter(mMainAdapter);
     }
 

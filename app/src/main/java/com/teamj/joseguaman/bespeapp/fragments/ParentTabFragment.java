@@ -50,9 +50,6 @@ public class ParentTabFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 super.onTabSelected(tab);
                 mViewPager.setCurrentItem(tab.getPosition());
-                //selectedTabPosition = mViewPager.getCurrentItem();
-                //Log.d("el objeto es : ", "Objeto " + mAdapter.getItem(tab.getPosition()).toString());
-                //Log.d("Selected", "Selected " + tab.getPosition());
             }
 
             @Override
