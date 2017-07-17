@@ -28,7 +28,7 @@ public class LugaresRestClient extends RestClientBase {
                                   Response.ErrorListener errorListener) {
         Map<String, String> params = new HashMap<>();
         Map<String, String> header = new HashMap<>();
-        params.put("idArea", idArea);
+        params.put("id_area", idArea);
 
         GsonRequest<WSResponse> request = new GsonRequest<>(Request.Method.POST, Constants.getURLLugaresPorIdAreaNoImagenesBytes(), WSResponse.class, header, params, listener, errorListener);
         executeRequest(request);
@@ -40,7 +40,7 @@ public class LugaresRestClient extends RestClientBase {
                                     Response.ErrorListener errorListener) {
         Map<String, String> params = new HashMap<>();
         Map<String, String> header = new HashMap<>();
-        params.put("idLugar", idLugar);
+        params.put("id_lugar", idLugar);
 
         GsonRequest<WSResponse> request = new GsonRequest<>(Request.Method.POST, Constants.getURLImagenLugar(), WSResponse.class, header, params, listener, errorListener);
         executeRequest(request);
