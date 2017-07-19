@@ -4,18 +4,20 @@ package com.teamj.joseguaman.bespeapp.fragments;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -30,10 +32,14 @@ import com.teamj.joseguaman.bespeapp.modelo.beacon.WSResponse;
 import com.teamj.joseguaman.bespeapp.modelo.util.DialogInformacion;
 import com.teamj.joseguaman.bespeapp.utils.ConnectionDetector;
 import com.teamj.joseguaman.bespeapp.utils.Constants;
+import com.teamj.joseguaman.bespeapp.utils.Tools;
 import com.teamj.joseguaman.bespeapp.webService.LugaresRestClient;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +56,9 @@ public class ChildTabFragment extends Fragment {
 
     @BindView(R.id.reclyclerViewLugares)
     RecyclerView mRecyclerView;
+
+    @BindView(R.id.image_area)
+    ImageView mImageView;
 
     private View view;
     private Unbinder unbinder;
@@ -82,19 +91,37 @@ public class ChildTabFragment extends Fragment {
                 new RecyclerItemClickListener(getActivity(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Lugar lugar = mMainAdapter.getItem(position);
+                        final Lugar lugar = mMainAdapter.getItem(position);
                         idLugarSeleccionado = lugar.getLugarId();
                         //TODO: consultar por id en un nuevo metodo
 
-                        DialogInformacion dialogInfo = new DialogInformacion();
-                        dialogInfo.setImage(R.drawable.ic_menu_camera);
-//                        dialogInfo.setMensaje(getResources().getString(R.string.metodologia_aviso_siembra));
-                        dialogInfo.setMensaje(lugar.getDescripcion());
-                        dialogInfo.setTitulo(lugar.getTitulo() + idLugarSeleccionado);
-                        EventBus.getDefault().postSticky(dialogInfo);
-                        DialogFragment dialog = new LugaresInfoDialog();
-                        dialog.setCancelable(false);//evita que se cierre al presionar el back button
-                        dialog.show(ChildTabFragment.this.getChildFragmentManager(), ChildTabFragment.class.getSimpleName());
+                        LugaresRestClient lugaresRestClient = new LugaresRestClient(getActivity());
+                        lugaresRestClient.getImagenPorIdLugar(String.valueOf(idLugarSeleccionado), new Response.Listener<WSResponse>() {
+                            @Override
+                            public void onResponse(WSResponse response) {
+                                DialogInformacion dialogInfo = new DialogInformacion();
+                                Gson gson = new Gson();
+                                Lugar l = gson.fromJson(response.getJsonEntity(), Lugar.class);
+                                //byte[] decodedString = Base64.decode(Tools.BitmapToString(l.getImagen()), Base64.NO_WRAP);
+                                InputStream inputStream = new ByteArrayInputStream(l.getImagen());
+                                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                                dialogInfo.setImage(bitmap);
+                                dialogInfo.setMensaje(lugar.getDescripcion());
+                                dialogInfo.setTitulo(lugar.getTitulo());
+                                EventBus.getDefault().postSticky(dialogInfo);
+                                DialogFragment dialog = new LugaresInfoDialog();
+                                dialog.setCancelable(false);//evita que se cierre al presionar el back button
+                                dialog.show(ChildTabFragment.this.getChildFragmentManager(), ChildTabFragment.class.getSimpleName());
+
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                            }
+                        });
+
+
                     }
 
                     @Override
@@ -114,7 +141,6 @@ public class ChildTabFragment extends Fragment {
         lrc.getLugaresPorArea(String.valueOf(idArea), new Response.Listener<WSResponse>() {
             @Override
             public void onResponse(WSResponse response) {
-                //TODO: Juanillo aqui es donde toca probar que se cargue los lugares por id de area
                 List<Lugar> listaLugar = new ArrayList<>();
                 Gson gson = new Gson();
                 TypeToken<List<Lugar>> token = new TypeToken<List<Lugar>>() {
@@ -133,10 +159,6 @@ public class ChildTabFragment extends Fragment {
     }
 
     private void loadInfo(List<Lugar> listaLugar) {
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic_menu_camera);
-        for (int i = 0; i < listaLugar.size(); i++) {
-            listaLugar.get(i).setImagen(bm);
-        }
 //        for (int i = 0; i < idArea; i++) {
 //            listaLugar.add(new Lugar(i + 1, new Area(), "descripcion" + (i + 1), bm, "titulo" + (i + 1)));
 //        }

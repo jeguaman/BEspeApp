@@ -13,12 +13,12 @@ public class Area implements Serializable {
     private int areaId;
     private String titulo;
     private String descripcion;
-    private Bitmap imagen;
+    private byte[] imagen;
 
     public Area() {
     }
 
-    public Area(int areaId, String titulo, String descripcion, Bitmap imagen) {
+    public Area(int areaId, String titulo, String descripcion, byte[] imagen) {
         this.areaId = areaId;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -49,11 +49,11 @@ public class Area implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Bitmap getImagen() {
+    public byte[] getImagen() {
         return imagen;
     }
 
-    public void setImagen(Bitmap imagen) {
+    public void setImagen(byte[] imagen) {
         this.imagen = imagen;
     }
 

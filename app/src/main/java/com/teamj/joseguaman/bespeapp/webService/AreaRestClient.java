@@ -33,11 +33,28 @@ public class AreaRestClient extends RestClientBase {
         executeRequest(request);
     }
 
+    public void obtenerTodasAreasSinImagen(Response.Listener<WSResponse> listener, Response.ErrorListener errorListener) {
+        Map<String, String> params = new HashMap<>();
+        Map<String, String> header = new HashMap<>();
+
+        GsonRequest<WSResponse> request = new GsonRequest<>(Request.Method.POST, Constants.getURLAreasSinImagen(), WSResponse.class, header, params, listener, errorListener);
+        executeRequest(request);
+    }
+
     public void obtenerTodasAreas(Response.Listener<WSResponse> listener, Response.ErrorListener errorListener) {
         Map<String, String> params = new HashMap<>();
         Map<String, String> header = new HashMap<>();
 
-        GsonRequest<WSResponse> request = new GsonRequest<>(Request.Method.POST, Constants.getURLAreas(), WSResponse.class, header, params, listener, errorListener);
+        GsonRequest<WSResponse> request = new GsonRequest<>(Request.Method.POST, Constants.getURLTodasAreas(), WSResponse.class, header, params, listener, errorListener);
+        executeRequest(request);
+    }
+
+    public void obtenerImagenPorArea(String idArea, Response.Listener<WSResponse> listener, Response.ErrorListener errorListener) {
+        Map<String, String> params = new HashMap<>();
+        Map<String, String> header = new HashMap<>();
+        params.put("id_area", idArea);
+
+        GsonRequest<WSResponse> request = new GsonRequest<>(Request.Method.POST, Constants.getURLImagenArea(), WSResponse.class, header, params, listener, errorListener);
         executeRequest(request);
     }
 }

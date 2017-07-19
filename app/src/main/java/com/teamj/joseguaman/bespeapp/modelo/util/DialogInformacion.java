@@ -1,5 +1,7 @@
 package com.teamj.joseguaman.bespeapp.modelo.util;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 /**
@@ -9,13 +11,13 @@ import java.io.Serializable;
 public class DialogInformacion implements Serializable {
 
     private String titulo;
-    private int image;
+    private Bitmap image;
     private String mensaje;
 
     public DialogInformacion() {
     }
 
-    public DialogInformacion(String titulo, int image, String mensaje) {
+    public DialogInformacion(String titulo, Bitmap image, String mensaje) {
         this.titulo = titulo;
         this.image = image;
         this.mensaje = mensaje;
@@ -26,7 +28,7 @@ public class DialogInformacion implements Serializable {
         return titulo;
     }
 
-    public int getImage() {
+    public Bitmap getImage() {
         return image;
     }
 
@@ -38,7 +40,7 @@ public class DialogInformacion implements Serializable {
         this.titulo = titulo;
     }
 
-    public void setImage(int image) {
+    public void setImage(Bitmap image) {
         this.image = image;
     }
 

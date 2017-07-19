@@ -15,13 +15,13 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.teamj.joseguaman.bespeapp.fragments.ParentTabFragment;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.Area;
-import com.teamj.joseguaman.bespeapp.modelo.beacon.Lugar;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.WSResponse;
 import com.teamj.joseguaman.bespeapp.webService.AreaRestClient;
-import com.teamj.joseguaman.bespeapp.webService.LugaresRestClient;
 import com.teamj.joseguaman.bespeapp.webService.restClientBase.VolleyRequest;
 
-import java.lang.reflect.Type;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         VolleyRequest.init(this);
         getIDs();
         obtenerInformacionServidor();
-
     }
 
     @Override
@@ -69,9 +68,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void obtenerInformacionServidor() {
-
         AreaRestClient lrc = new AreaRestClient(this);
-        lrc.obtenerTodasAreas(new Response.Listener<WSResponse>() {
+        lrc.obtenerTodasAreasSinImagen(new Response.Listener<WSResponse>() {
             @Override
             public void onResponse(WSResponse response) {
                 List<Area> listaAreas = new ArrayList<>();
@@ -90,7 +88,32 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void loadInfo(List<Area> listaAreas) {
+    private void loadInfo(final List<Area> listaAreas) {
+
+//        for (int i = 0; i < listaAreas.size(); i++) {
+//            AreaRestClient lrc = new AreaRestClient(this);
+//            final int finalI = i;
+//            lrc.obtenerImagenPorArea(String.valueOf(listaAreas.get(i).getAreaId()), new Response.Listener<WSResponse>() {
+//                @Override
+//                public void onResponse(WSResponse response) {
+//                    Gson gson = new Gson();
+//                    Area a = gson.fromJson(response.getJsonEntity(), Area.class);
+//                    /*InputStream inputStream = new ByteArrayInputStream(a.getImagen());
+//                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+//                    //de bitmap convertir a bytes[]
+//                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//                    byte[] byteArray = stream.toByteArray();*/
+//                    listaAreas.get(finalI).setImagen(a.getImagen());
+//                }
+//            }, new Response.ErrorListener() {
+//                @Override
+//                public void onErrorResponse(VolleyError error) {
+//
+//                }
+//            });
+//        }
+
         for (int i = 0; i < listaAreas.size(); i++) {
             fragmentParent.addPage(listaAreas.get(i));
         }

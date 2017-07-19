@@ -24,12 +24,12 @@
                 android:layout_weight="6"
                 android:orientation="vertical">
 
-                <TextView
+                <ImageView
+                    android:id="@+id/image_area"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="Aquí va imágen xD en todo este espacio"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                    android:padding="12dp"
+                    android:src="@drawable/ic_local_florist" />
 
             </LinearLayout>
 

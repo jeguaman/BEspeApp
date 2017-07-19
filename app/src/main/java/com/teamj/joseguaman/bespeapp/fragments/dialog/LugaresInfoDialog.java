@@ -61,8 +61,7 @@ public class LugaresInfoDialog extends DialogFragment {
     private void loadInformacion() {
         txtTitle.setText(dialogInformacionRecibido.getTitulo());
         mContenido.setText(dialogInformacionRecibido.getMensaje());
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), dialogInformacionRecibido.getImage());
-        imgGenerica.setImageBitmap(bm);
+        imgGenerica.setImageBitmap(dialogInformacionRecibido.getImage());
     }
 
     @Override

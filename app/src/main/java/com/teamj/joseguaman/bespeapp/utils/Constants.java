@@ -10,17 +10,19 @@ public class Constants {
     //private static final String $URL = "http://127.0.0.1:8080";
     //private static final String $URL = "http://192.168.2.58:8080";
     //casa
-    private static final String $URL = "http://192.168.1.6:8080";
+    private static final String $URL = "http://192.168.1.4:8080";
 
     private static final String $PATH_REGISTRO_NUEVO_MATCH = "/BeaconWS/webresources/ws/registrarAreaDispositivo";
     private static final String $PATH_NOTIFICACION_POR_AREA_TIPO = "/BeaconWS/webresources/ws/traerNotificacionPorAreaTipo";
     private static final String $PATH_LUGARES_POR_ID_AREA_NO_BYTES = "/BeaconWS/webresources/ws/traerLugaresPorIdAreaNoBytes";
     private static final String $PATH_AREA_POR_ID = "/BeaconWS/webresources/ws/traerAreaPorId";
     private static final String $PATH_AREAS_NO_IMAGEN = "/BeaconWS/webresources/ws/traerAreasNoImagen";
+    private static final String $PATH_AREAS = "/BeaconWS/webresources/ws/traerAreas";
     private static final String $PATH_LUGAR_POR_ID = "/BeaconWS/webresources/ws/traerLugarPorId";
     private static final String $PATH_LUGARES_POR_UUID = "/BeaconWS/webresources/ws/traerLugaresPorUUIDBeacon";
     private static final String $PATH_AREAS_POR_UUID = "/BeaconWS/webresources/ws/traerAreasPorUUIDBeacon";
-    private static final String $PATH_IMAGEN_LUGAR_POR_ID = "/BeaconWS/webresources/ws/traerImagenLugarPorId";
+    private static final String $PATH_IMAGEN_LUGAR_POR_ID = "/BeaconWS/webresources/ws/traerImagenPorIdLugar";
+    private static final String $PATH_IMAGEN_AREA_POR_ID = "/BeaconWS/webresources/ws/traerImagenPorIdArea";
     private static final String $PATH_IMAGES = "/media/";
 
     public static final String $BUNDLE_AREA = "area";
@@ -59,12 +61,20 @@ public class Constants {
         return $URL + $PATH_IMAGES;
     }
 
-    public static String getURLAreas() {
+    public static String getURLAreasSinImagen() {
         return $URL + $PATH_AREAS_NO_IMAGEN;
+    }
+
+    public static String getURLTodasAreas() {
+        return $URL + $PATH_AREAS;
     }
 
     public static String getURLImagenLugar() {
         return $URL + $PATH_IMAGEN_LUGAR_POR_ID;
+    }
+
+    public static String getURLImagenArea() {
+        return $URL + $PATH_IMAGEN_AREA_POR_ID;
     }
 }
 
