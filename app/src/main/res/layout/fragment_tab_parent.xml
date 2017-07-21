@@ -1,28 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentBottom="true">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            app:titleTextAppearance="@style/Toolbar.TitleText" />
-
-    </android.support.design.widget.AppBarLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_marginBottom="40dp"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
@@ -32,13 +20,28 @@
             app:tabSelectedTextColor="@android:color/background_light"
             app:tabTextColor="@android:color/secondary_text_light_nodisable" />
 
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/image_left"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_gravity="bottom|left"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:text="atrás" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@+id/appbar_layout"></android.support.v4.view.ViewPager>
+    <Button
+        android:id="@+id/image_right"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:text="siguiente" />
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
