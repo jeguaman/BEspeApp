@@ -50,6 +50,7 @@ public class LugarAdapter extends RecyclerView.Adapter<LugarAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Lugar lugar = mListaLugar.get(position);
+        //TODO: enviar a buscar la imagen por el ID y settear en imgIcono
         holder.txtOther.setText(String.valueOf(lugar.getLugarId()));
     }
 

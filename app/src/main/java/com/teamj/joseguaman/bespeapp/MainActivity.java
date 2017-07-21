@@ -1,5 +1,6 @@
 package com.teamj.joseguaman.bespeapp;
 
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     ParentTabFragment fragmentParent;
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void obtenerInformacionServidor() {
         AreaRestClient lrc = new AreaRestClient(this);
+        showProgressDialog("Beacons","Cargando Información...");
         lrc.obtenerTodasAreasSinImagen(new Response.Listener<WSResponse>() {
             @Override
             public void onResponse(WSResponse response) {
@@ -78,10 +81,12 @@ public class MainActivity extends AppCompatActivity {
                 };
                 listaAreas = gson.fromJson(response.getJsonEntity(), token.getType());
                 loadInfo(listaAreas);
+                hideProgressDialog();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                hideProgressDialog();
                 Log.e(TAG, error.toString());
             }
         });
@@ -89,33 +94,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadInfo(final List<Area> listaAreas) {
-
-//        for (int i = 0; i < listaAreas.size(); i++) {
-//            AreaRestClient lrc = new AreaRestClient(this);
-//            final int finalI = i;
-//            lrc.obtenerImagenPorArea(String.valueOf(listaAreas.get(i).getAreaId()), new Response.Listener<WSResponse>() {
-//                @Override
-//                public void onResponse(WSResponse response) {
-//                    Gson gson = new Gson();
-//                    Area a = gson.fromJson(response.getJsonEntity(), Area.class);
-//                    /*InputStream inputStream = new ByteArrayInputStream(a.getImagen());
-//                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-//                    //de bitmap convertir a bytes[]
-//                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//                    byte[] byteArray = stream.toByteArray();*/
-//                    listaAreas.get(finalI).setImagen(a.getImagen());
-//                }
-//            }, new Response.ErrorListener() {
-//                @Override
-//                public void onErrorResponse(VolleyError error) {
-//
-//                }
-//            });
-//        }
-
         for (int i = 0; i < listaAreas.size(); i++) {
             fragmentParent.addPage(listaAreas.get(i));
+        }
+    }
+
+    public void showProgressDialog(String title, String message) {
+        mProgressDialog = ProgressDialog.show(this, title, message, true, false);
+    }
+
+    public void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
         }
     }
 }

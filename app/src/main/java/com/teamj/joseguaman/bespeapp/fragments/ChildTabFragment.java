@@ -1,6 +1,7 @@
 package com.teamj.joseguaman.bespeapp.fragments;
 
 
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -33,6 +35,7 @@ import com.teamj.joseguaman.bespeapp.modelo.util.DialogInformacion;
 import com.teamj.joseguaman.bespeapp.utils.ConnectionDetector;
 import com.teamj.joseguaman.bespeapp.utils.Constants;
 import com.teamj.joseguaman.bespeapp.utils.Tools;
+import com.teamj.joseguaman.bespeapp.webService.AreaRestClient;
 import com.teamj.joseguaman.bespeapp.webService.LugaresRestClient;
 
 import org.greenrobot.eventbus.EventBus;
@@ -53,6 +56,7 @@ import butterknife.Unbinder;
 
 public class ChildTabFragment extends Fragment {
 
+    private static final String TAG = ChildTabFragment.class.getSimpleName();
 
     @BindView(R.id.reclyclerViewLugares)
     RecyclerView mRecyclerView;
@@ -66,6 +70,7 @@ public class ChildTabFragment extends Fragment {
     private ConnectionDetector mConnectionDetector;
     private int idLugarSeleccionado;
     private Area areaSeleccionada;
+    private ProgressDialog mProgressDialog;
 
     @Nullable
     @Override
@@ -75,6 +80,7 @@ public class ChildTabFragment extends Fragment {
         Bundle bundle = getArguments();
         areaSeleccionada = (Area) bundle.getSerializable(Constants.$BUNDLE_AREA);
         unbinder = ButterKnife.bind(this, view);
+        loadIMageArea(areaSeleccionada.getAreaId());
         mConnectionDetector = new ConnectionDetector(getActivity());
         setHasOptionsMenu(true);
         initLayout();
@@ -82,6 +88,27 @@ public class ChildTabFragment extends Fragment {
         return view;
     }
 
+    private void loadIMageArea(Integer idArea) {
+        //showProgressDialog("Beacon", "Cargando Imagen 1...");
+        AreaRestClient arc = new AreaRestClient(getActivity());
+        arc.obtenerImagenPorArea(String.valueOf(idArea), new Response.Listener<WSResponse>() {
+            @Override
+            public void onResponse(WSResponse response) {
+                Gson gson = new Gson();
+                Area a = gson.fromJson(response.getJsonEntity(), Area.class);
+                InputStream inputStream = new ByteArrayInputStream(a.getImagen());
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                mImageView.setImageBitmap(bitmap);
+                //hideProgressDialog();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //hideProgressDialog();
+                Log.e(TAG, "ERROR " + error);
+            }
+        });
+    }
 
     public void initLayout() {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -93,8 +120,7 @@ public class ChildTabFragment extends Fragment {
                     public void onItemClick(View view, int position) {
                         final Lugar lugar = mMainAdapter.getItem(position);
                         idLugarSeleccionado = lugar.getLugarId();
-                        //TODO: consultar por id en un nuevo metodo
-
+                        showProgressDialog("Beacon", "Cargando Información...");
                         LugaresRestClient lugaresRestClient = new LugaresRestClient(getActivity());
                         lugaresRestClient.getImagenPorIdLugar(String.valueOf(idLugarSeleccionado), new Response.Listener<WSResponse>() {
                             @Override
@@ -102,7 +128,6 @@ public class ChildTabFragment extends Fragment {
                                 DialogInformacion dialogInfo = new DialogInformacion();
                                 Gson gson = new Gson();
                                 Lugar l = gson.fromJson(response.getJsonEntity(), Lugar.class);
-                                //byte[] decodedString = Base64.decode(Tools.BitmapToString(l.getImagen()), Base64.NO_WRAP);
                                 InputStream inputStream = new ByteArrayInputStream(l.getImagen());
                                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                                 dialogInfo.setImage(bitmap);
@@ -112,16 +137,15 @@ public class ChildTabFragment extends Fragment {
                                 DialogFragment dialog = new LugaresInfoDialog();
                                 dialog.setCancelable(false);//evita que se cierre al presionar el back button
                                 dialog.show(ChildTabFragment.this.getChildFragmentManager(), ChildTabFragment.class.getSimpleName());
-
+                                hideProgressDialog();
                             }
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-
+                                hideProgressDialog();
+                                Log.e(TAG, "Error es: " + error);
                             }
                         });
-
-
                     }
 
                     @Override
@@ -132,11 +156,9 @@ public class ChildTabFragment extends Fragment {
         );
     }
 
-    private void loadInfoDialogo() {
-        //getImagenPorIdLugar
-    }
-
     public void loadData(int idArea) {
+        //hideProgressDialog();
+        //showProgressDialog("Beacon", "Cargando Información 2...");
         LugaresRestClient lrc = new LugaresRestClient(getActivity());
         lrc.getLugaresPorArea(String.valueOf(idArea), new Response.Listener<WSResponse>() {
             @Override
@@ -147,21 +169,18 @@ public class ChildTabFragment extends Fragment {
                 };
                 listaLugar = gson.fromJson(response.getJsonEntity(), token.getType());
                 loadInfo(listaLugar);
+                //hideProgressDialog();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.e(TAG, error.toString());
+                //hideProgressDialog();
             }
         });
-
-
     }
 
     private void loadInfo(List<Lugar> listaLugar) {
-//        for (int i = 0; i < idArea; i++) {
-//            listaLugar.add(new Lugar(i + 1, new Area(), "descripcion" + (i + 1), bm, "titulo" + (i + 1)));
-//        }
         mMainAdapter = new LugarAdapter(listaLugar);
         mRecyclerView.setAdapter(mMainAdapter);
     }
@@ -170,6 +189,16 @@ public class ChildTabFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    public void showProgressDialog(String title, String message) {
+        mProgressDialog = ProgressDialog.show(getActivity(), title, message, true, false);
+    }
+
+    public void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 
 }

@@ -10,7 +10,7 @@ public class Constants {
     //private static final String $URL = "http://127.0.0.1:8080";
     //private static final String $URL = "http://192.168.2.58:8080";
     //casa
-    private static final String $URL = "http://192.168.1.4:8080";
+    private static final String $URL = "http://192.168.2.58:8080";
 
     private static final String $PATH_REGISTRO_NUEVO_MATCH = "/BeaconWS/webresources/ws/registrarAreaDispositivo";
     private static final String $PATH_NOTIFICACION_POR_AREA_TIPO = "/BeaconWS/webresources/ws/traerNotificacionPorAreaTipo";

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.teamj.joseguaman.bespeapp.R;
@@ -26,6 +27,8 @@ public class ParentTabFragment extends Fragment {
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private ViewPagerAdapter mAdapter;
+    private ImageView imageViewSiguiente;
+    private ImageView imageViewAtras;
 
     @Nullable
     @Override
@@ -59,6 +62,8 @@ public class ParentTabFragment extends Fragment {
             }
         });
     }
+
+    //setCurrentItem + o - 1
 
     public void addPage(Area area) {
         Bundle bundle = new Bundle();

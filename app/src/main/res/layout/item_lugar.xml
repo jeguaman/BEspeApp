@@ -9,15 +9,15 @@
 
     <TextView
         android:id="@+id/txt_other"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:hint="img xD"
         android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle" />
 
     <ImageView
         android:id="@+id/img_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:src="@mipmap/ic_launcher" />
 
 </LinearLayout>
