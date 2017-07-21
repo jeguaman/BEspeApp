@@ -20,9 +20,6 @@ import com.teamj.joseguaman.bespeapp.modelo.beacon.WSResponse;
 import com.teamj.joseguaman.bespeapp.webService.AreaRestClient;
 import com.teamj.joseguaman.bespeapp.webService.restClientBase.VolleyRequest;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 

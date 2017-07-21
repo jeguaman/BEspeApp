@@ -22,22 +22,11 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     private final ArrayList<Fragment> mFragmentList = new ArrayList<>();
     private final ArrayList<String> mFragmentTitleList = new ArrayList<>();
     private Context context;
-    //private ViewPager viewPager;
-    //private TabLayout tabLayout;
 
     public ViewPagerAdapter(FragmentManager manager, Context context) {
         super(manager);
         this.context = context;
-        //this.viewPager = viewPager;
-        //this.tabLayout = tabLayout;
     }
-    /*
-    public ViewPagerAdapter(FragmentManager manager, Context context, ViewPager viewPager, TabLayout tabLayout) {
-        super(manager);
-        this.context = context;
-        this.viewPager = viewPager;
-        this.tabLayout = tabLayout;
-    }*/
 
     public void addNewFragment(Fragment fragment, String title) {
         mFragmentList.add(fragment);
@@ -60,7 +49,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         //CircleImageView tabItemAvatar = (CircleImageView) view.findViewById(R.id.img_icon_tab);
         txtNombreTab.setText(mFragmentTitleList.get(position));
         txtNombreTab.setTextColor(context.getResources().getColor(android.R.color.black));
-
         return view;
     }
 

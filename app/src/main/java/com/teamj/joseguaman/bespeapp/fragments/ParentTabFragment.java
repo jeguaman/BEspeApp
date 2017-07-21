@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -18,31 +19,46 @@ import com.teamj.joseguaman.bespeapp.modelo.beacon.Area;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.Lugar;
 import com.teamj.joseguaman.bespeapp.utils.Constants;
 
+import java.sql.SQLOutput;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
 /**
  * Created by Jose Guaman on 06/07/2017.
  */
 
 public class ParentTabFragment extends Fragment {
 
-    private TabLayout mTabLayout;
-    private ViewPager mViewPager;
+    @BindView(R.id.tab_layout)
+    TabLayout mTabLayout;
+
+    @BindView(R.id.viewPager)
+    ViewPager mViewPager;
+
+    @BindView(R.id.image_right)
+    Button btnViewSiguiente;
+
+    @BindView(R.id.image_left)
+    Button btnViewAtras;
+
+    private Unbinder unbinder;
     private ViewPagerAdapter mAdapter;
-    private ImageView imageViewSiguiente;
-    private ImageView imageViewAtras;
+    private View view;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tab_parent, container, false);
-        getIDs(view);
+        view = inflater.inflate(R.layout.fragment_tab_parent, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        getIDs();
         setEvents();
         return view;
     }
 
-    private void getIDs(View view) {
-        mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
-        mTabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
-        //mAdapter = new ViewPagerAdapter(getFragmentManager(), getActivity(), mViewPager, mTabLayout);
+    private void getIDs() {
         mAdapter = new ViewPagerAdapter(getFragmentManager(), getActivity());
         mViewPager.setAdapter(mAdapter);
     }
@@ -53,17 +69,43 @@ public class ParentTabFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 super.onTabSelected(tab);
                 mViewPager.setCurrentItem(tab.getPosition());
+                verificarBotonesSigAnt();
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 super.onTabUnselected(tab);
-                Log.d("Unselected", "Unselected " + tab.getPosition());
             }
         });
     }
 
-    //setCurrentItem + o - 1
+    @OnClick(R.id.image_right)
+    public void tabSiguiente() {
+        mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+        verificarBotonesSigAnt();
+    }
+
+    @OnClick(R.id.image_left)
+    public void tabAnterior() {
+        mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
+        verificarBotonesSigAnt();
+    }
+
+    private void verificarBotonesSigAnt() {
+        int selectedTabPosition = mViewPager.getCurrentItem();
+        System.out.println("adalter count es : " + mAdapter.getCount());
+        System.out.println("selec position count es : " + selectedTabPosition);
+        if (selectedTabPosition == 0) {
+            btnViewAtras.setVisibility(View.GONE);
+            btnViewSiguiente.setVisibility(View.VISIBLE);
+        } else if (selectedTabPosition == mAdapter.getCount() - 1) {
+            btnViewAtras.setVisibility(View.VISIBLE);
+            btnViewSiguiente.setVisibility(View.GONE);
+        } else {
+            btnViewAtras.setVisibility(View.VISIBLE);
+            btnViewSiguiente.setVisibility(View.VISIBLE);
+        }
+    }
 
     public void addPage(Area area) {
         Bundle bundle = new Bundle();
@@ -76,10 +118,17 @@ public class ParentTabFragment extends Fragment {
         setupTabLayout();
     }
 
+
     public void setupTabLayout() {
         //selectedTabPosition = mViewPager.getCurrentItem();
         for (int i = 0; i < mTabLayout.getTabCount(); i++) {
             mTabLayout.getTabAt(i).setCustomView(mAdapter.getTabView(i));
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }
