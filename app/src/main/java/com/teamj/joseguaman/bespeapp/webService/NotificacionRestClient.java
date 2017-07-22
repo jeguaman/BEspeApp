@@ -22,14 +22,16 @@ public class NotificacionRestClient extends RestClientBase {
         super(mContext);
     }
 
-    public void getLugaresPorArea(String idArea, Response.Listener<WSResponse> listener,
-                                  Response.ErrorListener errorListener) {
+    public void obtenerNotificacionAreaTipo(String idArea, String tipo, Response.Listener<WSResponse> listener,
+                                            Response.ErrorListener errorListener) {
         Map<String, String> params = new HashMap<>();
         Map<String, String> header = new HashMap<>();
         params.put("id_area", idArea);
+        params.put("tipo", tipo);
 
-        GsonRequest<WSResponse> request = new GsonRequest<>(Request.Method.POST, Constants.getURLRegistroAreaDispositivo(), WSResponse.class, header, params, listener, errorListener);
+        GsonRequest<WSResponse> request = new GsonRequest<>(Request.Method.POST, Constants.getURLNotificacionesAreaTipo(), WSResponse.class, header, params, listener, errorListener);
         executeRequest(request);
 
     }
+
 }

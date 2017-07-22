@@ -36,7 +36,7 @@ public class Constants {
         return $URL + $PATH_REGISTRO_NUEVO_MATCH;
     }
 
-    public static String getURLNotificacionesArea() {
+    public static String getURLNotificacionesAreaTipo() {
         return $URL + $PATH_NOTIFICACION_POR_AREA_TIPO;
     }
 
