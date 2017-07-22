@@ -11,14 +11,13 @@
         android:id="@+id/txt_other"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:hint="img xD"
         android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle" />
 
     <ImageView
         android:id="@+id/img_icon"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_height="40dp"
+        android:src="@drawable/ic_room" />
 
 </LinearLayout>
 

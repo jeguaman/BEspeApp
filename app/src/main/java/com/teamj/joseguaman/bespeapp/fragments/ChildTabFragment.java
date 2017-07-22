@@ -157,8 +157,6 @@ public class ChildTabFragment extends Fragment {
     }
 
     public void loadData(int idArea) {
-        //hideProgressDialog();
-        //showProgressDialog("Beacon", "Cargando Información 2...");
         LugaresRestClient lrc = new LugaresRestClient(getActivity());
         lrc.getLugaresPorArea(String.valueOf(idArea), new Response.Listener<WSResponse>() {
             @Override
@@ -169,19 +167,17 @@ public class ChildTabFragment extends Fragment {
                 };
                 listaLugar = gson.fromJson(response.getJsonEntity(), token.getType());
                 loadInfo(listaLugar);
-                //hideProgressDialog();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, error.toString());
-                //hideProgressDialog();
             }
         });
     }
 
     private void loadInfo(List<Lugar> listaLugar) {
-        mMainAdapter = new LugarAdapter(listaLugar);
+        mMainAdapter = new LugarAdapter(listaLugar, getContext());//TODO: verificar si es el contexto correcto.
         mRecyclerView.setAdapter(mMainAdapter);
     }
 

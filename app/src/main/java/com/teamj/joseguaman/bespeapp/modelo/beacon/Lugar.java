@@ -3,6 +3,7 @@ package com.teamj.joseguaman.bespeapp.modelo.beacon;
 import android.graphics.Bitmap;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * Created by Jose Guaman on 20/06/2017.
@@ -14,16 +15,18 @@ public class Lugar implements Serializable {
     private Area area;
     private String descripcion;
     private byte[] imagen;
+    private byte[] icono;
     private String titulo;
 
     public Lugar() {
     }
 
-    public Lugar(int lugarId, Area area, String descripcion, byte[] imagen, String titulo) {
+    public Lugar(int lugarId, Area area, String descripcion, byte[] imagen, byte[] icono, String titulo) {
         this.lugarId = lugarId;
         this.area = area;
         this.descripcion = descripcion;
         this.imagen = imagen;
+        this.icono = icono;
         this.titulo = titulo;
     }
 
@@ -67,13 +70,22 @@ public class Lugar implements Serializable {
         this.titulo = titulo;
     }
 
+    public byte[] getIcono() {
+        return icono;
+    }
+
+    public void setIcono(byte[] icono) {
+        this.icono = icono;
+    }
+
     @Override
     public String toString() {
         return "Lugar{" +
                 "lugarId=" + lugarId +
                 ", area=" + area +
                 ", descripcion='" + descripcion + '\'' +
-                ", imagen=" + imagen +
+                ", imagen=" + Arrays.toString(imagen) +
+                ", icono=" + Arrays.toString(icono) +
                 ", titulo='" + titulo + '\'' +
                 '}';
     }
