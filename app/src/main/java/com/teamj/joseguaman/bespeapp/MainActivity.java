@@ -12,6 +12,8 @@ import android.view.MenuItem;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.estimote.sdk.EstimoteSDK;
+import com.estimote.sdk.SystemRequirementsChecker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.teamj.joseguaman.bespeapp.fragments.ParentTabFragment;
@@ -103,6 +105,22 @@ public class MainActivity extends AppCompatActivity {
     public void hideProgressDialog() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        MyApplication app = (MyApplication) getApplication();
+
+        if (!SystemRequirementsChecker.checkWithDefaultDialogs(this)) {
+            Log.e(TAG, "No se puede escanear Beacons, algunos permisos no estan autorizados.");
+            Log.e(TAG, "Leer más acerca de que es necesario en: http://estimote.github.io/Android-SDK/JavaDocs/com/estimote/sdk/SystemRequirementsChecker.html");
+            Log.e(TAG, "Si esto es arreglado, usted podrá ver un dialogo sobre la pantalla de su aplicación ahora, si desea pregunte sobre el correcto funcionamiento.");
+        } else if (!app.isBeaconNotificationsEnabled()) {
+            Log.d(TAG, "Habilitando notificaciones beacon.......");
+            app.enableBeaconNotifications();
         }
     }
 }

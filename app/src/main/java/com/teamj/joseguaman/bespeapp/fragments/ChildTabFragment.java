@@ -1,6 +1,7 @@
 package com.teamj.joseguaman.bespeapp.fragments;
 
 
+import android.app.Application;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -97,7 +98,11 @@ public class ChildTabFragment extends Fragment {
                 Gson gson = new Gson();
                 Area a = gson.fromJson(response.getJsonEntity(), Area.class);
                 InputStream inputStream = new ByteArrayInputStream(a.getImagen());
+                showProgressDialog("Area", "Cargando Información...");
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                if (bitmap == null) {
+                    bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_account_balance);
+                }
                 mImageView.setImageBitmap(bitmap);
                 //hideProgressDialog();
             }
@@ -177,7 +182,7 @@ public class ChildTabFragment extends Fragment {
     }
 
     private void loadInfo(List<Lugar> listaLugar) {
-        mMainAdapter = new LugarAdapter(listaLugar, getContext());//TODO: verificar si es el contexto correcto.
+        mMainAdapter = new LugarAdapter(listaLugar, getActivity());//TODO: verificar si es el contexto correcto.
         mRecyclerView.setAdapter(mMainAdapter);
     }
 
