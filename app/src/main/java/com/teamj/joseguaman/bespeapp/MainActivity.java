@@ -1,5 +1,6 @@
 package com.teamj.joseguaman.bespeapp;
 
+import android.support.v4.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.teamj.joseguaman.bespeapp.estimote.BeaconID;
 import com.teamj.joseguaman.bespeapp.fragments.ParentTabFragment;
+import com.teamj.joseguaman.bespeapp.fragments.dialog.InfoAppDialog;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.Area;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.AreaBeacon;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.Beacon;
@@ -54,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -65,10 +66,17 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
-            intent.putExtra(EXTRA_MESSAGE, "mensaje");
+            //intent.putExtra(EXTRA_MESSAGE, "mensaje");
             startActivity(intent);
             return true;
+        } else if (id == R.id.action_us) {
+            DialogFragment dialog = new InfoAppDialog();
+            dialog.setCancelable(false);//evita que se cierre al presionar el back button
+            dialog.show(getSupportFragmentManager(), InfoAppDialog.class.getSimpleName());
+        } else if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
         }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -79,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void obtenerInformacionServidor() {
         AreaRestClient lrc = new AreaRestClient(this);
-        showProgressDialog("Beacons","Cargando Información...");
+        showProgressDialog("Beacons", "Cargando Información...");
         lrc.obtenerTodasAreasSinImagen(new Response.Listener<WSResponse>() {
             @Override
             public void onResponse(WSResponse response) {
