@@ -7,10 +7,18 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.Region;
+import com.google.gson.Gson;
 import com.teamj.joseguaman.bespeapp.MainActivity;
+import com.teamj.joseguaman.bespeapp.R;
+import com.teamj.joseguaman.bespeapp.modelo.beacon.Notificacion;
+import com.teamj.joseguaman.bespeapp.modelo.beacon.Registro;
+import com.teamj.joseguaman.bespeapp.modelo.beacon.WSResponse;
+import com.teamj.joseguaman.bespeapp.webService.RegistroRestClient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +38,7 @@ public class BeaconNotificationsManager {
 
     private int notificationID = 0;
 
-    public BeaconNotificationsManager(Context context) {
+    public BeaconNotificationsManager(final Context context) {
         this.context = context;
         beaconManager = new BeaconManager(context);
         beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
@@ -40,6 +48,22 @@ public class BeaconNotificationsManager {
                 String message = enterMessages.get(region.getIdentifier());
                 if (message != null) {
                     showNotification(message);
+                    final Registro registroIngreso= new Registro();
+                    RegistroRestClient restClient = new RegistroRestClient(context);
+                    restClient.registroAreaDispositivo("1","2","E",new Response.Listener<WSResponse>() {
+                        @Override
+                        public void onResponse(WSResponse response) {
+                            Gson gson = new Gson();
+                            Registro a = gson.fromJson(response.getJsonEntity(), Registro.class);
+                            //hideProgressDialog();
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            //hideProgressDialog();
+                            Log.e(TAG, "ERROR " + error);
+                        }
+                    });
                     //TODO: Poner el registro de ingreso
                 }
             }
@@ -56,8 +80,25 @@ public class BeaconNotificationsManager {
         });
     }
 
+
+    public void addNotification(BeaconID beaconID, List<Notificacion> notificaciones) {
+        Region region = beaconID.toBeaconRegion();
+        for (Notificacion notificacion:notificaciones
+             ) {
+            if (notificacion.getTipo().compareTo("E")==0){
+                enterMessages.put(region.getIdentifier(), notificacion.getDescripcion());
+            }else if(notificacion.getTipo().compareTo("S")==0){
+                exitMessages.put(region.getIdentifier(), notificacion.getDescripcion());
+            }
+        }
+
+        regionsToMonitor.add(region);
+    }
+
+    //Original
     public void addNotification(BeaconID beaconID, String enterMessage, String exitMessage) {
         Region region = beaconID.toBeaconRegion();
+        System.out.println("GETIDEINTIER_REGION:"+region.getIdentifier());
         enterMessages.put(region.getIdentifier(), enterMessage);
         exitMessages.put(region.getIdentifier(), exitMessage);
         regionsToMonitor.add(region);

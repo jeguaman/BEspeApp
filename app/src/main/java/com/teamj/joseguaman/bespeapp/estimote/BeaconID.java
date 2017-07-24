@@ -9,6 +9,7 @@ public class BeaconID {
     private UUID proximityUUID;
     private int major;
     private int minor;
+    private int claveBase;
 
     public BeaconID(UUID proximityUUID, int major, int minor) {
         this.proximityUUID = proximityUUID;
@@ -18,6 +19,11 @@ public class BeaconID {
 
     public BeaconID(String UUIDString, int major, int minor) {
         this(UUID.fromString(UUIDString), major, minor);
+    }
+
+    public BeaconID(int claveBase, String UUIDString, int major, int minor) {
+        this(UUID.fromString(UUIDString), major, minor);
+        this.claveBase=claveBase;
     }
 
     public UUID getProximityUUID() {

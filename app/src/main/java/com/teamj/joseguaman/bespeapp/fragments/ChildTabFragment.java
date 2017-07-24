@@ -98,7 +98,7 @@ public class ChildTabFragment extends Fragment {
                 Gson gson = new Gson();
                 Area a = gson.fromJson(response.getJsonEntity(), Area.class);
                 InputStream inputStream = new ByteArrayInputStream(a.getImagen());
-                showProgressDialog("Area", "Cargando Información...");
+//                showProgressDialog("Area", "Cargando Información...");
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                 if (bitmap == null) {
                     bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_account_balance);

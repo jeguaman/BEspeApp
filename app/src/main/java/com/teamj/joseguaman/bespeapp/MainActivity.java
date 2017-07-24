@@ -8,18 +8,22 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.estimote.sdk.EstimoteSDK;
 import com.estimote.sdk.SystemRequirementsChecker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.teamj.joseguaman.bespeapp.estimote.BeaconID;
 import com.teamj.joseguaman.bespeapp.fragments.ParentTabFragment;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.Area;
+import com.teamj.joseguaman.bespeapp.modelo.beacon.AreaBeacon;
+import com.teamj.joseguaman.bespeapp.modelo.beacon.Beacon;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.WSResponse;
+import com.teamj.joseguaman.bespeapp.webService.AreaBeaconRestClient;
 import com.teamj.joseguaman.bespeapp.webService.AreaRestClient;
+import com.teamj.joseguaman.bespeapp.webService.NotificacionRestClient;
+import com.teamj.joseguaman.bespeapp.webService.BeaconRestClient;
 import com.teamj.joseguaman.bespeapp.webService.restClientBase.VolleyRequest;
 
 import java.util.ArrayList;
@@ -30,8 +34,11 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     ParentTabFragment fragmentParent;
     private ProgressDialog mProgressDialog;
-
+    private List<Beacon> beaconList= new ArrayList<>();
+    private List<BeaconID> beaconIDEstimote= new ArrayList<>();
+    private List<AreaBeacon> areaBeaconList= new ArrayList<>();
     public final static String EXTRA_MESSAGE = "msg";
+    StringBuilder beaconListString;
 
 
     @Override
@@ -123,6 +130,8 @@ public class MainActivity extends AppCompatActivity {
         } else if (!app.isBeaconNotificationsEnabled()) {
             Log.d(TAG, "Habilitando notificaciones beacon.......");
             app.enableBeaconNotifications();
+            //app.enableBeaconNotifications();
         }
     }
+
 }
