@@ -13,6 +13,9 @@ public class Constants {
     //private static final String $URL = "http://192.168.2.58:8080";
     //biblioteca
     private static final String $URL = "http://10.101.11.129:8080";
+    private static String WEB_PATH = "/BeaconWS/webresources/ws";
+    private static String APP_NAME = "/BeaconWS/";
+
 
     private static final String $PATH_REGISTRO_NUEVO_MATCH = "/BeaconWS/webresources/ws/registrarAreaDispositivo";
     private static final String $PATH_NOTIFICACION_POR_AREA_TIPO = "/BeaconWS/webresources/ws/traerNotificacionPorAreaTipo";
@@ -27,6 +30,11 @@ public class Constants {
     private static final String $PATH_ICONO_LUGAR_POR_ID = "/BeaconWS/webresources/ws/traerIconoPorIdLugar";
     private static final String $PATH_IMAGEN_AREA_POR_ID = "/BeaconWS/webresources/ws/traerImagenPorIdArea";
     private static final String $PATH_IMAGES = "/media/";
+
+
+    public static String getHostUrlAppNAME() {
+        return $URL + APP_NAME;
+    }
 
     public static final String $BUNDLE_AREA = "area";
 
