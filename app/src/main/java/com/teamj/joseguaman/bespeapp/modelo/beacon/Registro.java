@@ -8,25 +8,17 @@ import java.io.Serializable;
 
 public class Registro implements Serializable {
 
-    private int dispositivoId;
     private String imei;
     private String descripcion;
+    private Area areaId;
+    private Dispositivo dispositivoId;
 
     public Registro() {
     }
 
     public Registro(int dispositivoId, String imei, String descripcion) {
-        this.dispositivoId = dispositivoId;
         this.imei = imei;
         this.descripcion = descripcion;
-    }
-
-    public int getDispositivoId() {
-        return dispositivoId;
-    }
-
-    public void setDispositivoId(int dispositivoId) {
-        this.dispositivoId = dispositivoId;
     }
 
     public String getImei() {
@@ -43,6 +35,22 @@ public class Registro implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Area getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(Area areaId) {
+        this.areaId = areaId;
+    }
+
+    public Dispositivo getDispositivoId() {
+        return dispositivoId;
+    }
+
+    public void setDispositivoId(Dispositivo dispositivoId) {
+        this.dispositivoId = dispositivoId;
     }
 
     @Override

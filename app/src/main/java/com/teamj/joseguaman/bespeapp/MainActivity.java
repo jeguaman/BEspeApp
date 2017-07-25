@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.estimote.sdk.SystemRequirementsChecker;
 import com.google.gson.Gson;
@@ -36,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     ParentTabFragment fragmentParent;
     private ProgressDialog mProgressDialog;
-    private List<Beacon> beaconList= new ArrayList<>();
-    private List<BeaconID> beaconIDEstimote= new ArrayList<>();
-    private List<AreaBeacon> areaBeaconList= new ArrayList<>();
+    private List<Beacon> beaconList = new ArrayList<>();
+    private List<BeaconID> beaconIDEstimote = new ArrayList<>();
+    private List<AreaBeacon> areaBeaconList = new ArrayList<>();
     public final static String EXTRA_MESSAGE = "msg";
     StringBuilder beaconListString;
 
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        MyApplication app = (MyApplication) getApplication();
+       MyApplication app = (MyApplication) getApplication();
 
         if (!SystemRequirementsChecker.checkWithDefaultDialogs(this)) {
             Log.e(TAG, "No se puede escanear Beacons, algunos permisos no estan autorizados.");
