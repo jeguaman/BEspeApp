@@ -17,7 +17,7 @@ public class PreferencesShare {
     public static final String USER_PROFILE_NAME = "com.teamj.joseguaman.bespeapp.USER_PROFILE_NAME";
     public static final String EQUIPO_NAME = "com.teamj.joseguaman.bespeapp.EQUIPO_NAME";
     public static final String SOUND = "com.teamj.joseguaman.bespeapp.SOUND";
-    //public static final Boolean SOUND = Boolean.FALSE;
+    public static final String MODE_NIGHT = "com.teamj.joseguaman.bespeapp.MODE_NIGHT";
     private static final String PREFERENCE_NAME = "com.teamj.joseguaman.bespeapp.MAIN_PREF";
 
 
@@ -40,5 +40,13 @@ public class PreferencesShare {
 
     public Boolean getSoundApp() {
         return sharedPreferences.getBoolean(SOUND, Boolean.TRUE);
+    }
+
+    public void setModeNightApp(Boolean sonido) {
+        sharedPreferences.edit().putBoolean(MODE_NIGHT, sonido).apply();
+    }
+
+    public Boolean getModeNightApp() {
+        return sharedPreferences.getBoolean(MODE_NIGHT, Boolean.TRUE);
     }
 }

@@ -3,9 +3,11 @@ package com.teamj.joseguaman.bespeapp;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.teamj.joseguaman.bespeapp.utils.PreferencesShare;
@@ -22,6 +24,9 @@ public class SettingsActivity extends AppCompatActivity {
     @BindView(R.id.check_notificacion)
     CheckBox checkBox;
 
+    @BindView(R.id.switch_mode_night)
+    Switch mSwitch;
+
     private PreferencesShare preferencesShare;
 
     @Override
@@ -35,6 +40,20 @@ public class SettingsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
         checkBox.setChecked(preferencesShare.getSoundApp());
+        mSwitch.setChecked(preferencesShare.getModeNightApp());
+        mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+                preferencesShare.setModeNightApp(isChecked);
+                recreate();
+            }
+        });
+
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

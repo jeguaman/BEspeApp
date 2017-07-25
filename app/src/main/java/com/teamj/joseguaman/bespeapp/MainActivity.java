@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -24,6 +25,7 @@ import com.teamj.joseguaman.bespeapp.modelo.beacon.AreaBeacon;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.Beacon;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.WSResponse;
 import com.teamj.joseguaman.bespeapp.webService.AreaBeaconRestClient;
+import com.teamj.joseguaman.bespeapp.utils.PreferencesShare;
 import com.teamj.joseguaman.bespeapp.webService.AreaRestClient;
 import com.teamj.joseguaman.bespeapp.webService.NotificacionRestClient;
 import com.teamj.joseguaman.bespeapp.webService.BeaconRestClient;
@@ -37,9 +39,10 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     ParentTabFragment fragmentParent;
     private ProgressDialog mProgressDialog;
-    private List<Beacon> beaconList = new ArrayList<>();
-    private List<BeaconID> beaconIDEstimote = new ArrayList<>();
-    private List<AreaBeacon> areaBeaconList = new ArrayList<>();
+    private List<Beacon> beaconList= new ArrayList<>();
+    private List<BeaconID> beaconIDEstimote= new ArrayList<>();
+    private List<AreaBeacon> areaBeaconList= new ArrayList<>();
+    private PreferencesShare sharedPreferences;
     public final static String EXTRA_MESSAGE = "msg";
     StringBuilder beaconListString;
 
@@ -48,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sharedPreferences = new PreferencesShare(this);
+        verificarModoNocturno();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         VolleyRequest.init(this);
@@ -143,4 +148,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        recreate();
+    }
+
+    private void verificarModoNocturno() {
+        if (sharedPreferences.getModeNightApp()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
 }
