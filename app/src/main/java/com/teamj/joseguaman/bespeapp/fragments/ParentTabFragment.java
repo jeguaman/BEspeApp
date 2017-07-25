@@ -18,6 +18,7 @@ import com.teamj.joseguaman.bespeapp.adapter.ViewPagerAdapter;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.Area;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.Lugar;
 import com.teamj.joseguaman.bespeapp.utils.Constants;
+import com.teamj.joseguaman.bespeapp.utils.Tools;
 
 import java.sql.SQLOutput;
 
@@ -43,6 +44,9 @@ public class ParentTabFragment extends Fragment {
 
     @BindView(R.id.image_left)
     Button btnViewAtras;
+
+    @BindView(R.id.btn_imei)
+    Button btnImei;
 
     private Unbinder unbinder;
     private ViewPagerAdapter mAdapter;
@@ -89,6 +93,11 @@ public class ParentTabFragment extends Fragment {
     public void tabAnterior() {
         mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
         verificarBotonesSigAnt();
+    }
+
+    @OnClick(R.id.btn_imei)//@BindView(R.id.btn_imei)
+    public void obtenerImei() {
+        //Toast.makeText(view.getContext(), "el imei es: " + Tools.getIMEI(view.getContext()), Toast.LENGTH_SHORT).show();
     }
 
     private void verificarBotonesSigAnt() {
