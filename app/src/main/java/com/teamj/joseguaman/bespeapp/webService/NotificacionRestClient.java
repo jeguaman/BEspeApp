@@ -34,4 +34,16 @@ public class NotificacionRestClient extends RestClientBase {
 
     }
 
+    public void obtenerNotificacionBeaconTipo(String ibBeacon, String tipo, Response.Listener<WSResponse> listener,
+                                            Response.ErrorListener errorListener) {
+        Map<String, String> params = new HashMap<>();
+        Map<String, String> header = new HashMap<>();
+        params.put("id_beacon", ibBeacon);
+        params.put("tipo", tipo);
+
+        GsonRequest<WSResponse> request = new GsonRequest<>(Request.Method.POST, Constants.getURLNotificacionesBeaconTipo(), WSResponse.class, header, params, listener, errorListener);
+        executeRequest(request);
+
+    }
+
 }

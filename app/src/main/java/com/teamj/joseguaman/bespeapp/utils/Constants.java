@@ -18,6 +18,7 @@ public class Constants {
 
 
     private static final String $PATH_REGISTRO_NUEVO_MATCH = "/BeaconWS/webresources/ws/registrarAreaDispositivo";
+    private static final String $PATH_NOTIFICACION_POR_BEACON_TIPO = "/BeaconWS/webresources/ws/traerNotificacionPorBeaconTipo";
     private static final String $PATH_NOTIFICACION_POR_AREA_TIPO = "/BeaconWS/webresources/ws/traerNotificacionPorAreaTipo";
     private static final String $PATH_LUGARES_POR_ID_AREA_NO_BYTES = "/BeaconWS/webresources/ws/traerLugaresPorIdAreaNoBytes";
     private static final String $PATH_AREA_POR_ID = "/BeaconWS/webresources/ws/traerAreaPorId";
@@ -35,6 +36,7 @@ public class Constants {
     private static final String $PATH_IMAGES = "/media/";
 
 
+
     public static String getHostUrlAppNAME() {
         return $URL + APP_NAME;
     }
@@ -49,6 +51,10 @@ public class Constants {
 
     public static String getURLNotificacionesAreaTipo() {
         return $URL + $PATH_NOTIFICACION_POR_AREA_TIPO;
+    }
+
+    public static String getURLNotificacionesBeaconTipo() {
+        return $URL + $PATH_NOTIFICACION_POR_BEACON_TIPO;
     }
 
     public static String getURLLugaresPorIdAreaNoImagenesBytes() {

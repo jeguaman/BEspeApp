@@ -33,6 +33,9 @@ public class MyApplication extends Application {
     private List<BeaconID> beaconIDEstimote = new ArrayList<>();
     private Context context;
     private BeaconNotificationsManager beaconNotificationsManager;
+    private Notificacion entrdada=null;
+    private Notificacion salida=null;
+
 
     @Override
     public void onCreate() {
@@ -132,7 +135,18 @@ public class MyApplication extends Application {
     private void agregarNotificaciones(BeaconID beaconId) {
 
         /*NotificacionRestClient notificacionRestClient= new NotificacionRestClient(context);
-        notificacionRestClient.*/
+        notificacionRestClient.obtenerNotificacionBeaconTipo(String.valueOf(beaconId.getClaveBase()), "E", new Response.Listener<WSResponse>() {
+            @Override
+            public void onResponse(WSResponse response) {
+                Gson gson = new Gson();
+                entrdada = new Notificacion();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, error.toString());
+            }
+        });*/
         beaconNotificationsManager.addNotification(beaconId,
                 "Hola Mundo, world.",
                 "Goodbye, world.");
