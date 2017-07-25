@@ -279,8 +279,9 @@ public class Tools {
         return temp;
     }
 
-    public String getIMEI(Context context) {
+    public static String getIMEI(Context context) {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);
-        return telephonyManager.getDeviceId();
+        //return telephonyManager.getDeviceId();
+        return " ";
     }
 }

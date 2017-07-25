@@ -28,7 +28,15 @@ public class AreaBeaconRestClient extends RestClientBase {
         Map<String, String> header = new HashMap<>();
         params.put("listaIdBeacon", idsBeaconString);
 
-        GsonRequest<WSResponse> request = new GsonRequest<>(Request.Method.POST, Constants.getURLTraerAreaBeaconPorIdsBeacon(), WSResponse.class, header, params, listener, errorListener);
+        GsonRequest<WSResponse> request = new GsonRequest<>(Request.Method.POST, Constants.getURLTraerAreaBeaconListaPorIdsBeacon(), WSResponse.class, header, params, listener, errorListener);
+        executeRequest(request);
+    }
+    public void traerAreaBeaconPorIdBeacon(Integer idBeacon,Response.Listener<WSResponse> listener, Response.ErrorListener errorListener) {
+        Map<String, String> params = new HashMap<>();
+        Map<String, String> header = new HashMap<>();
+        params.put("idBeacon", String.valueOf(idBeacon));
+
+        GsonRequest<WSResponse> request = new GsonRequest<>(Request.Method.POST, Constants.getURLTraerAreaBeaconPorIdBeacon(), WSResponse.class, header, params, listener, errorListener);
         executeRequest(request);
     }
 }

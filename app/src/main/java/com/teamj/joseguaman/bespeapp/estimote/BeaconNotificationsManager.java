@@ -18,6 +18,8 @@ import com.teamj.joseguaman.bespeapp.R;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.Notificacion;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.Registro;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.WSResponse;
+import com.teamj.joseguaman.bespeapp.utils.Tools;
+import com.teamj.joseguaman.bespeapp.webService.NotificacionRestClient;
 import com.teamj.joseguaman.bespeapp.webService.RegistroRestClient;
 
 import java.util.ArrayList;
@@ -33,6 +35,8 @@ public class BeaconNotificationsManager {
     private List<Region> regionsToMonitor = new ArrayList<>();
     private HashMap<String, String> enterMessages = new HashMap<>();
     private HashMap<String, String> exitMessages = new HashMap<>();
+    private List<Notificacion> notifiaciones = new ArrayList<>();
+    private List<InformacionBeacon> beacons = new ArrayList();
 
     private Context context;
 
@@ -48,13 +52,14 @@ public class BeaconNotificationsManager {
                 String message = enterMessages.get(region.getIdentifier());
                 if (message != null) {
                     showNotification(message);
-                    final Registro registroIngreso= new Registro();
+                    Registro registroIngreso = new Registro();
                     RegistroRestClient restClient = new RegistroRestClient(context);
-                    restClient.registroAreaDispositivo("1","2","E",new Response.Listener<WSResponse>() {
+                    restClient.registroAreaDispositivo("1", Tools.getIMEI(context), "E", new Response.Listener<WSResponse>() {
                         @Override
                         public void onResponse(WSResponse response) {
                             Gson gson = new Gson();
                             Registro a = gson.fromJson(response.getJsonEntity(), Registro.class);
+                            System.out.println("RESGISRO:"+a.toString());
                             //hideProgressDialog();
                         }
                     }, new Response.ErrorListener() {
@@ -64,7 +69,6 @@ public class BeaconNotificationsManager {
                             Log.e(TAG, "ERROR " + error);
                         }
                     });
-                    //TODO: Poner el registro de ingreso
                 }
             }
 
@@ -83,11 +87,12 @@ public class BeaconNotificationsManager {
 
     public void addNotification(BeaconID beaconID, List<Notificacion> notificaciones) {
         Region region = beaconID.toBeaconRegion();
-        for (Notificacion notificacion:notificaciones
-             ) {
-            if (notificacion.getTipo().compareTo("E")==0){
+        recuperarNotificacion();
+        for (Notificacion notificacion : notificaciones
+                ) {
+            if (notificacion.getTipo().compareTo("E") == 0) {
                 enterMessages.put(region.getIdentifier(), notificacion.getDescripcion());
-            }else if(notificacion.getTipo().compareTo("S")==0){
+            } else if (notificacion.getTipo().compareTo("S") == 0) {
                 exitMessages.put(region.getIdentifier(), notificacion.getDescripcion());
             }
         }
@@ -98,7 +103,6 @@ public class BeaconNotificationsManager {
     //Original
     public void addNotification(BeaconID beaconID, String enterMessage, String exitMessage) {
         Region region = beaconID.toBeaconRegion();
-        System.out.println("GETIDEINTIER_REGION:"+region.getIdentifier());
         enterMessages.put(region.getIdentifier(), enterMessage);
         exitMessages.put(region.getIdentifier(), exitMessage);
         regionsToMonitor.add(region);
@@ -131,5 +135,11 @@ public class BeaconNotificationsManager {
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(notificationID++, builder.build());
+    }
+
+    private void recuperarNotificacion(){
+        notifiaciones= new ArrayList<>();
+        NotificacionRestClient notificacionRestClient= new NotificacionRestClient(context);
+
     }
 }

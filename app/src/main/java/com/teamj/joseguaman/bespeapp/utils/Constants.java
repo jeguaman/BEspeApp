@@ -12,12 +12,13 @@ public class Constants {
     //casa
     //private static final String $URL = "http://192.168.2.58:8080";
     //biblioteca
-    private static final String $URL = "http://10.101.11.129:8080";
+    private static final String $URL = "http://192.168.100.69:8080";
     private static String WEB_PATH = "/BeaconWS/webresources/ws";
     private static String APP_NAME = "/BeaconWS/";
 
 
     private static final String $PATH_REGISTRO_NUEVO_MATCH = "/BeaconWS/webresources/ws/registrarAreaDispositivo";
+    private static final String $PATH_NOTIFICACION_POR_BEACON_TIPO = "/BeaconWS/webresources/ws/traerNotificacionPorBeaconTipo";
     private static final String $PATH_NOTIFICACION_POR_AREA_TIPO = "/BeaconWS/webresources/ws/traerNotificacionPorAreaTipo";
     private static final String $PATH_LUGARES_POR_ID_AREA_NO_BYTES = "/BeaconWS/webresources/ws/traerLugaresPorIdAreaNoBytes";
     private static final String $PATH_AREA_POR_ID = "/BeaconWS/webresources/ws/traerAreaPorId";
@@ -30,8 +31,10 @@ public class Constants {
     private static final String $PATH_ICONO_LUGAR_POR_ID = "/BeaconWS/webresources/ws/traerIconoPorIdLugar";
     private static final String $PATH_IMAGEN_AREA_POR_ID = "/BeaconWS/webresources/ws/traerImagenPorIdArea";
     private static final String $PATH_BEACONS_NO_IMAGEN = "/BeaconWS/webresources/ws/traerBeacons";
-    private static final String $PATH_AREA_BEACON_IDS_BEACON_IDS = "/BeaconWS/webresources/ws/traerAreaBeaconPorIdsBeacon";
+    private static final String $PATH_AREA_BEACON_IDS_BEACON_IDS = "/BeaconWS/webresources/ws/traerAreaBeaconListaPorIdsBeacon";
+    private static final String $PATH_AREA_BEACON_ID_BEACON_ID = "/BeaconWS/webresources/ws/traerAreaBeaconPorIdBeacon";
     private static final String $PATH_IMAGES = "/media/";
+
 
 
     public static String getHostUrlAppNAME() {
@@ -48,6 +51,10 @@ public class Constants {
 
     public static String getURLNotificacionesAreaTipo() {
         return $URL + $PATH_NOTIFICACION_POR_AREA_TIPO;
+    }
+
+    public static String getURLNotificacionesBeaconTipo() {
+        return $URL + $PATH_NOTIFICACION_POR_BEACON_TIPO;
     }
 
     public static String getURLLugaresPorIdAreaNoImagenesBytes() {
@@ -98,8 +105,11 @@ public class Constants {
         return $URL + $PATH_BEACONS_NO_IMAGEN;
     }
 
-    public static String getURLTraerAreaBeaconPorIdsBeacon() {
+    public static String getURLTraerAreaBeaconListaPorIdsBeacon() {
         return $URL + $PATH_AREA_BEACON_IDS_BEACON_IDS;
+    }
+    public static String getURLTraerAreaBeaconPorIdBeacon() {
+        return $URL + $PATH_AREA_BEACON_ID_BEACON_ID;
     }
 }
 

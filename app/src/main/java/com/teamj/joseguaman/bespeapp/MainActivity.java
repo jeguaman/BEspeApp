@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.estimote.sdk.SystemRequirementsChecker;
 import com.google.gson.Gson;
@@ -134,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        MyApplication app = (MyApplication) getApplication();
+       MyApplication app = (MyApplication) getApplication();
 
         if (!SystemRequirementsChecker.checkWithDefaultDialogs(this)) {
             Log.e(TAG, "No se puede escanear Beacons, algunos permisos no estan autorizados.");
