@@ -29,6 +29,8 @@ public class Constants {
     private static final String $PATH_IMAGEN_LUGAR_POR_ID = "/BeaconWS/webresources/ws/traerImagenPorIdLugar";
     private static final String $PATH_ICONO_LUGAR_POR_ID = "/BeaconWS/webresources/ws/traerIconoPorIdLugar";
     private static final String $PATH_IMAGEN_AREA_POR_ID = "/BeaconWS/webresources/ws/traerImagenPorIdArea";
+    private static final String $PATH_BEACONS_NO_IMAGEN = "/BeaconWS/webresources/ws/traerBeacons";
+    private static final String $PATH_AREA_BEACON_IDS_BEACON_IDS = "/BeaconWS/webresources/ws/traerAreaBeaconPorIdsBeacon";
     private static final String $PATH_IMAGES = "/media/";
 
 
@@ -90,6 +92,14 @@ public class Constants {
 
     public static String getURLIconoLugar() {
         return $URL + $PATH_ICONO_LUGAR_POR_ID;
+    }
+
+    public static String getURLBeaconsSinImagen() {
+        return $URL + $PATH_BEACONS_NO_IMAGEN;
+    }
+
+    public static String getURLTraerAreaBeaconPorIdsBeacon() {
+        return $URL + $PATH_AREA_BEACON_IDS_BEACON_IDS;
     }
 }
 

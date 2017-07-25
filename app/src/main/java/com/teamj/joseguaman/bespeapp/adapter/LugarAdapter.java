@@ -72,15 +72,16 @@ public class LugarAdapter extends RecyclerView.Adapter<LugarAdapter.ViewHolder> 
             public void onResponse(WSResponse response) {
                 Gson gson = new Gson();
                 Lugar lugarRecibido = gson.fromJson(response.getJsonEntity(), Lugar.class);
-                if (lugarRecibido.getIcono() != null) {
-                    InputStream inputStream = new ByteArrayInputStream(lugarRecibido.getIcono());
-                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                    holder.imgIcono.setImageBitmap(bitmap);
+                Bitmap bitmap;
+                if (lugarRecibido.getImagen() != null) {
+                    InputStream inputStream = new ByteArrayInputStream(lugarRecibido.getImagen());
+                    bitmap = BitmapFactory.decodeStream(inputStream);
                 } else {
-
+                    bitmap = BitmapFactory.decodeResource(mContext.getResources(),
+                            R.drawable.ic_account_balance);
                 }
+                holder.imgIcono.setImageBitmap(bitmap);
                 holder.txtOther.setText(String.valueOf(lugarRecibido.getLugarId()));
-
             }
         }, new Response.ErrorListener() {
             @Override
