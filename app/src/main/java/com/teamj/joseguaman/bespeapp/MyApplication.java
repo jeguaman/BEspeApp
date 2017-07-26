@@ -33,8 +33,7 @@ public class MyApplication extends Application {
     private List<BeaconID> beaconIDEstimote = new ArrayList<>();
     private Context context;
     private BeaconNotificationsManager beaconNotificationsManager;
-    private Notificacion entrdada=null;
-    private Notificacion salida=null;
+    private List<Notificacion> notificaciones=new ArrayList<>();
 
 
     @Override
@@ -78,8 +77,6 @@ public class MyApplication extends Application {
 
     public void traerBeaconsServidor() {
         BeaconRestClient lrc = new BeaconRestClient(this);
-        NotificacionRestClient notificacionRestClient = new NotificacionRestClient(this);
-        AreaBeaconRestClient areaBeaconRestClient = new AreaBeaconRestClient(this);
         lrc.obtenerTodosBeaconsSinImagen(new Response.Listener<WSResponse>() {
             @Override
             public void onResponse(WSResponse response) {
@@ -132,24 +129,40 @@ public class MyApplication extends Application {
         }
     }
 
-    private void agregarNotificaciones(BeaconID beaconId) {
+    private void agregarNotificaciones(final BeaconID beaconId) {
 
-        /*NotificacionRestClient notificacionRestClient= new NotificacionRestClient(context);
-        notificacionRestClient.obtenerNotificacionBeaconTipo(String.valueOf(beaconId.getClaveBase()), "E", new Response.Listener<WSResponse>() {
+        NotificacionRestClient notificacionRestClient= new NotificacionRestClient(context);
+        notificacionRestClient.obtenerNotificacionBeacon(String.valueOf(beaconId.getClaveBase()), new Response.Listener<WSResponse>() {
             @Override
             public void onResponse(WSResponse response) {
                 Gson gson = new Gson();
-                entrdada = new Notificacion();
+                TypeToken<List<Notificacion>> token = new TypeToken<List<Notificacion>>() {
+                };
+                notificaciones = gson.fromJson(response.getJsonEntity(), token.getType());
+                if (notificaciones!=null && !notificaciones.isEmpty()){
+                    setearNotificaciones(beaconId,notificaciones);
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, error.toString());
             }
-        });*/
-        beaconNotificationsManager.addNotification(beaconId,
-                "Hola Mundo, world.",
-                "Goodbye, world.");
+        });
 
+        /*beaconNotificationsManager.addNotification(beaconId,
+                "Hola Mundo, world.",
+                "Goodbye, world.");*/
+
+    }
+
+    private void setearNotificaciones(BeaconID beaconId,List<Notificacion> notificaciones){
+        Notificacion entrada;
+        Notificacion salida;
+        entrada= notificaciones.get(0);
+        salida=notificaciones.get(1);
+        beaconNotificationsManager.addNotification(beaconId,
+                entrada.getDescripcion(),
+                salida.getDescripcion());
     }
 }

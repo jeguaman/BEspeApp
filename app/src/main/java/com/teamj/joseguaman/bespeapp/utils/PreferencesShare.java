@@ -34,11 +34,11 @@ public class PreferencesShare {
         return sharedPreferences.getString(EQUIPO_NAME, "");
     }
 
-    public void setSoundApp(Boolean sonido) {
+    public void setNotificacionApp(Boolean sonido) {
         sharedPreferences.edit().putBoolean(SOUND, sonido).apply();
     }
 
-    public Boolean getSoundApp() {
+    public Boolean getNotificacionApp() {
         return sharedPreferences.getBoolean(SOUND, Boolean.TRUE);
     }
 
