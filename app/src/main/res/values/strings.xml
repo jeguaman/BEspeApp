@@ -16,6 +16,13 @@
     <string name="dlg_aceptar">Aceptar</string>
     <string name="title_activity_settings">Configuración</string>
 
+    <string name="dialog_title_permission">Confirmación de Permisos</string>
+    <string name="dialog_content_permission">
+        Para activar todas las características de esta aplicación, es necesario que se concedan los permisos necesarios. ¿Desea conceder estos permisos?
+    </string>
+    <string name="positive_button">Si </string>
+    <string name="negative_button">No </string>
+
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->

@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     private List<BeaconID> beaconIDEstimote= new ArrayList<>();
     private List<AreaBeacon> areaBeaconList= new ArrayList<>();
     private PreferencesShare sharedPreferences;
-    public final static String EXTRA_MESSAGE = "msg";
     StringBuilder beaconListString;
 
 
@@ -72,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
-            //intent.putExtra(EXTRA_MESSAGE, "mensaje");
             startActivity(intent);
             return true;
         } else if (id == R.id.action_us) {

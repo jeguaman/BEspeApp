@@ -1,5 +1,7 @@
 package com.teamj.joseguaman.bespeapp.utils;
 
+import android.Manifest;
+
 /**
  * Created by alterbios on 05-Jul-17.
  */
@@ -35,7 +37,16 @@ public class Constants {
     private static final String $PATH_AREA_BEACON_ID_BEACON_ID = "/BeaconWS/webresources/ws/traerAreaBeaconPorIdBeacon";
     private static final String $PATH_IMAGES = "/media/";
 
+    public static String[] ALL_REQUIRED_PERMISSION = {
+            Manifest.permission.INTERNET,
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.ACCESS_NETWORK_STATE,
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.BLUETOOTH
+    };
 
+    public static final int MY_PERMISSIONS_REQUEST = 311;
 
     public static String getHostUrlAppNAME() {
         return $URL + APP_NAME;

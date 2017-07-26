@@ -13,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.teamj.joseguaman.bespeapp.utils.Constants;
+import com.teamj.joseguaman.bespeapp.utils.PermissionUtil;
 import com.teamj.joseguaman.bespeapp.utils.Tools;
 
 import org.greenrobot.eventbus.EventBus;
