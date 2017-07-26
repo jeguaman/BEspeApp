@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import com.teamj.joseguaman.bespeapp.utils.PreferencesShare;
 
@@ -39,7 +38,7 @@ public class SettingsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-        checkBox.setChecked(preferencesShare.getSoundApp());
+        checkBox.setChecked(preferencesShare.getNotificacionApp());
         mSwitch.setChecked(preferencesShare.getModeNightApp());
         mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -57,7 +56,7 @@ public class SettingsActivity extends AppCompatActivity {
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                preferencesShare.setSoundApp(isChecked);
+                preferencesShare.setNotificacionApp(isChecked);
             }
         });
     }
