@@ -14,7 +14,7 @@ public class Constants {
     //casa
     //private static final String $URL = "http://192.168.2.58:8080";
     //biblioteca
-    private static final String $URL = "http://192.168.100.69:8080";
+    private static final String $URL = "http://192.168.100.77:8080";
     private static String WEB_PATH = "/BeaconWS/webresources/ws";
     private static String APP_NAME = "/BeaconWS/";
 
@@ -40,11 +40,12 @@ public class Constants {
 
     public static String[] ALL_REQUIRED_PERMISSION = {
             Manifest.permission.INTERNET,
+            Manifest.permission.BLUETOOTH,
+            Manifest.permission.BLUETOOTH_ADMIN,
             Manifest.permission.READ_PHONE_STATE,
             Manifest.permission.ACCESS_NETWORK_STATE,
-            Manifest.permission.READ_PHONE_STATE,
             Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.BLUETOOTH
+            Manifest.permission.ACCESS_COARSE_LOCATION
     };
 
     public static final int MY_PERMISSIONS_REQUEST = 311;
@@ -124,6 +125,7 @@ public class Constants {
     public static String getURLTraerAreaBeaconListaPorIdsBeacon() {
         return $URL + $PATH_AREA_BEACON_IDS_BEACON_IDS;
     }
+
     public static String getURLTraerAreaBeaconPorIdBeacon() {
         return $URL + $PATH_AREA_BEACON_ID_BEACON_ID;
     }

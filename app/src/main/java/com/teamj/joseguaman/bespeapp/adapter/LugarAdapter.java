@@ -76,11 +76,12 @@ public class LugarAdapter extends RecyclerView.Adapter<LugarAdapter.ViewHolder> 
                 if (lugarRecibido.getImagen() != null) {
                     InputStream inputStream = new ByteArrayInputStream(lugarRecibido.getImagen());
                     bitmap = BitmapFactory.decodeStream(inputStream);
+                    holder.imgIcono.setImageBitmap(bitmap);
                 } else {
-                    bitmap = BitmapFactory.decodeResource(mContext.getResources(),
-                            R.drawable.ic_account_balance);
+
+                    // holder.imgIcono.setImageResource(R.drawable.ic_room);
                 }
-                holder.imgIcono.setImageBitmap(bitmap);
+
                 holder.txtOther.setText(String.valueOf(lugarRecibido.getLugarId()));
             }
         }, new Response.ErrorListener() {

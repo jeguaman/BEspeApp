@@ -1,6 +1,7 @@
 package com.teamj.joseguaman.bespeapp;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -12,9 +13,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.estimote.sdk.EstimoteSDK;
 import com.teamj.joseguaman.bespeapp.utils.Constants;
 import com.teamj.joseguaman.bespeapp.utils.PermissionUtil;
 import com.teamj.joseguaman.bespeapp.utils.Tools;
+import com.teamj.joseguaman.bespeapp.webService.restClientBase.VolleyRequest;
 
 import org.greenrobot.eventbus.EventBus;
 

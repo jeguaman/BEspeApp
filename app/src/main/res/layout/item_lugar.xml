@@ -17,7 +17,7 @@
         android:id="@+id/img_icon"
         android:layout_width="40dp"
         android:layout_height="50dp"
-        android:src="@drawable/ic_room" />
+        android:src="@mipmap/ic_launcher" />
 
 </LinearLayout>
 
