@@ -79,7 +79,7 @@ public class LugarAdapter extends RecyclerView.Adapter<LugarAdapter.ViewHolder> 
                     holder.imgIcono.setImageBitmap(bitmap);
                 } else {
 
-                    // holder.imgIcono.setImageResource(R.drawable.ic_room);
+                    holder.imgIcono.setImageResource(R.drawable.ic_room);
                 }
 
                 holder.txtOther.setText(String.valueOf(lugarRecibido.getLugarId()));

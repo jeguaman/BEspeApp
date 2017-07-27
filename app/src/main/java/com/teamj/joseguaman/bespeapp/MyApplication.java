@@ -41,134 +41,134 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-//        context = getApplicationContext();
-//        EstimoteSDK.initialize(getApplicationContext(), "beacon-tesis-ama", "422a5e24ee58a76c013dac074146f4b7");
+        context = getApplicationContext();
+        EstimoteSDK.initialize(getApplicationContext(), "beacon-tesis-ama", "422a5e24ee58a76c013dac074146f4b7");
         VolleyRequest.init(this);
         // uncomment to enable debug-level logging
         // it's usually only a good idea when troubleshooting issues with the Estimote SDK
 //        EstimoteSDK.enableDebugLogging(true);
     }
 
-//
-//    //TODO: debería ir en el main activity todos los metodos hacia abajo
-//    public void enableBeaconNotifications() {
-//        if (beaconNotificationsEnabled) {
-//            Log.i("pinche TAG", "paso aca");
-//            return;
-//        }
-//        Log.i("pinche TAG", "va a a la consulta");
-//        traerBeaconsServidor();
-//    }
-//
-//    //Original
-///*
-//    public void enableBeaconNotifications() {
-//        if (beaconNotificationsEnabled) { return; }
-//
-//        BeaconNotificationsManager beaconNotificationsManager = new BeaconNotificationsManager(this);
-//        beaconNotificationsManager.addNotification(
-//                new BeaconID("B9407F30-F5F8-466E-AFF9-25556B57FE6D", 13701, 9068),
-//                "Hola Mundo, world.",
-//                "Goodbye, world.");
-//        beaconNotificationsManager.startMonitoring();
-//
-//        beaconNotificationsEnabled = true;
-//    }
-//*/
-//
-//    public boolean isBeaconNotificationsEnabled() {
-//        return beaconNotificationsEnabled;
-//    }
-//
-//
-//    public void traerBeaconsServidor() {
-//        BeaconRestClient lrc = new BeaconRestClient(this);
-//        lrc.obtenerTodosBeaconsSinImagen(new Response.Listener<WSResponse>() {
-//            @Override
-//            public void onResponse(WSResponse response) {
-//                Gson gson = new Gson();
-//                TypeToken<List<Beacon>> token = new TypeToken<List<Beacon>>() {
-//                };
-//                List<Beacon> beacons = gson.fromJson(response.getJsonEntity(), token.getType());
-//                beacons.toString();
-//                cargarListaBeaconEstimote(beacons);
-//                beaconNotificationsManager = new BeaconNotificationsManager(context);
-//                for (BeaconID b : beaconIDEstimote
-//                        ) {
-//                    agregarNotificaciones(b);
-//                }
-//
-//                beaconNotificationsManager.startMonitoring();
-//
-//                beaconNotificationsEnabled = true;
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.e(TAG, error.toString());
-//            }
-//        });
-//
-//        /*areaBeaconRestClient.traerAreaBeaconPorIdsBeacon(beaconListString.toString(),new Response.Listener<WSResponse>() {
-//            @Override
-//            public void onResponse(WSResponse response) {
-//                Gson gson = new Gson();
-//                TypeToken<List<AreaBeacon>> token = new TypeToken<List<AreaBeacon>>() {
-//                };
-//                areaBeaconList = gson.fromJson(response.getJsonEntity(), token.getType());
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.e(TAG, error.toString());
-//            }
-//        });
-//        System.out.println("AREABEACONLIST:");
-//        areaBeaconList.toString();*/
-//    }
-//
-//    private void cargarListaBeaconEstimote(List<Beacon> beaconsBase) {
-//        BeaconID beaconID;
-//        for (Beacon b : beaconsBase) {
-//            beaconID = new BeaconID(b.getBeaconId(), b.getUuid(), Integer.parseInt(b.getMajor()), Integer.parseInt(b.getMinor()));
-//            beaconIDEstimote.add(beaconID);
-//        }
-//    }
-//
-//    private void agregarNotificaciones(final BeaconID beaconId) {
-//
-//        NotificacionRestClient notificacionRestClient= new NotificacionRestClient(context);
-//        notificacionRestClient.obtenerNotificacionBeacon(String.valueOf(beaconId.getClaveBase()), new Response.Listener<WSResponse>() {
-//            @Override
-//            public void onResponse(WSResponse response) {
-//                Gson gson = new Gson();
-//                TypeToken<List<Notificacion>> token = new TypeToken<List<Notificacion>>() {
-//                };
-//                notificaciones = gson.fromJson(response.getJsonEntity(), token.getType());
-//                if (notificaciones!=null && !notificaciones.isEmpty()){
-//                    setearNotificaciones(beaconId,notificaciones);
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.e(TAG, error.toString());
-//            }
-//        });
-//
-//        /*beaconNotificationsManager.addNotification(beaconId,
-//                "Hola Mundo, world.",
-//                "Goodbye, world.");*/
-//
-//    }
-//
-//    private void setearNotificaciones(BeaconID beaconId,List<Notificacion> notificaciones){
-//        Notificacion entrada;
-//        Notificacion salida;
-//        entrada= notificaciones.get(0);
-//        salida=notificaciones.get(1);
-//        beaconNotificationsManager.addNotification(beaconId,
-//                entrada.getDescripcion(),
-//                salida.getDescripcion());
-//    }
+
+    //TODO: debería ir en el main activity todos los metodos hacia abajo
+    public void enableBeaconNotifications() {
+        if (beaconNotificationsEnabled) {
+            Log.i("pinche TAG", "paso aca");
+            return;
+        }
+        Log.i("pinche TAG", "va a a la consulta");
+        traerBeaconsServidor();
+    }
+
+    //Original
+/*
+    public void enableBeaconNotifications() {
+        if (beaconNotificationsEnabled) { return; }
+
+        BeaconNotificationsManager beaconNotificationsManager = new BeaconNotificationsManager(this);
+        beaconNotificationsManager.addNotification(
+                new BeaconID("B9407F30-F5F8-466E-AFF9-25556B57FE6D", 13701, 9068),
+                "Hola Mundo, world.",
+                "Goodbye, world.");
+        beaconNotificationsManager.startMonitoring();
+
+        beaconNotificationsEnabled = true;
+    }
+*/
+
+    public boolean isBeaconNotificationsEnabled() {
+        return beaconNotificationsEnabled;
+    }
+
+
+    public void traerBeaconsServidor() {
+        BeaconRestClient lrc = new BeaconRestClient(this);
+        lrc.obtenerTodosBeaconsSinImagen(new Response.Listener<WSResponse>() {
+            @Override
+            public void onResponse(WSResponse response) {
+                Gson gson = new Gson();
+                TypeToken<List<Beacon>> token = new TypeToken<List<Beacon>>() {
+                };
+                List<Beacon> beacons = gson.fromJson(response.getJsonEntity(), token.getType());
+                beacons.toString();
+                cargarListaBeaconEstimote(beacons);
+                beaconNotificationsManager = new BeaconNotificationsManager(context);
+                for (BeaconID b : beaconIDEstimote
+                        ) {
+                    agregarNotificaciones(b);
+                }
+
+                beaconNotificationsManager.startMonitoring();
+
+                beaconNotificationsEnabled = true;
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, error.toString());
+            }
+        });
+
+        /*areaBeaconRestClient.traerAreaBeaconPorIdsBeacon(beaconListString.toString(),new Response.Listener<WSResponse>() {
+            @Override
+            public void onResponse(WSResponse response) {
+                Gson gson = new Gson();
+                TypeToken<List<AreaBeacon>> token = new TypeToken<List<AreaBeacon>>() {
+                };
+                areaBeaconList = gson.fromJson(response.getJsonEntity(), token.getType());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, error.toString());
+            }
+        });
+        System.out.println("AREABEACONLIST:");
+        areaBeaconList.toString();*/
+    }
+
+    private void cargarListaBeaconEstimote(List<Beacon> beaconsBase) {
+        BeaconID beaconID;
+        for (Beacon b : beaconsBase) {
+            beaconID = new BeaconID(b.getBeaconId(), b.getUuid(), Integer.parseInt(b.getMajor()), Integer.parseInt(b.getMinor()));
+            beaconIDEstimote.add(beaconID);
+        }
+    }
+
+    private void agregarNotificaciones(final BeaconID beaconId) {
+
+        NotificacionRestClient notificacionRestClient = new NotificacionRestClient(context);
+        notificacionRestClient.obtenerNotificacionBeacon(String.valueOf(beaconId.getClaveBase()), new Response.Listener<WSResponse>() {
+            @Override
+            public void onResponse(WSResponse response) {
+                Gson gson = new Gson();
+                TypeToken<List<Notificacion>> token = new TypeToken<List<Notificacion>>() {
+                };
+                notificaciones = gson.fromJson(response.getJsonEntity(), token.getType());
+                if (notificaciones != null && !notificaciones.isEmpty()) {
+                    setearNotificaciones(beaconId, notificaciones);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, error.toString());
+            }
+        });
+
+        /*beaconNotificationsManager.addNotification(beaconId,
+                "Hola Mundo, world.",
+                "Goodbye, world.");*/
+
+    }
+
+    private void setearNotificaciones(BeaconID beaconId, List<Notificacion> notificaciones) {
+        Notificacion entrada;
+        Notificacion salida;
+        entrada = notificaciones.get(0);
+        salida = notificaciones.get(1);
+        beaconNotificationsManager.addNotification(beaconId,
+                entrada.getDescripcion(),
+                salida.getDescripcion());
+    }
 }

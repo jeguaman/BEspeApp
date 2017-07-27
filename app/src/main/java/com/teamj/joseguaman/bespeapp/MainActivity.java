@@ -184,22 +184,22 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//
-//       MyApplication app = (MyApplication) getApplication();
-//
-//        if (!SystemRequirementsChecker.checkWithDefaultDialogs(this)) {
-//            Log.e(TAG, "No se puede escanear Beacons, algunos permisos no estan autorizados.");
-//            Log.e(TAG, "Leer más acerca de que es necesario en: http://estimote.github.io/Android-SDK/JavaDocs/com/estimote/sdk/SystemRequirementsChecker.html");
-//            Log.e(TAG, "Si esto es arreglado, usted podrá ver un dialogo sobre la pantalla de su aplicación ahora, si desea pregunte sobre el correcto funcionamiento.");
-//        } else if (!app.isBeaconNotificationsEnabled()) {
-//            Log.d(TAG, "Habilitando notificaciones beacon.......");
-//            app.enableBeaconNotifications();
-//            //app.enableBeaconNotifications();
-//        }
-//    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        MyApplication app = (MyApplication) getApplication();
+
+        if (!SystemRequirementsChecker.checkWithDefaultDialogs(this)) {
+            Log.e(TAG, "No se puede escanear Beacons, algunos permisos no estan autorizados.");
+            Log.e(TAG, "Leer más acerca de que es necesario en: http://estimote.github.io/Android-SDK/JavaDocs/com/estimote/sdk/SystemRequirementsChecker.html");
+            Log.e(TAG, "Si esto es arreglado, usted podrá ver un dialogo sobre la pantalla de su aplicación ahora, si desea pregunte sobre el correcto funcionamiento.");
+        } else if (!app.isBeaconNotificationsEnabled()) {
+            Log.d(TAG, "Habilitando notificaciones beacon.......");
+            app.enableBeaconNotifications();
+            //app.enableBeaconNotifications();
+        }
+    }
 
 
     @Override

@@ -44,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
         mProgressView = findViewById(R.id.progressBar);
-        continueWithApplication();
+        //continueWithApplication();
     }
 
     private void continueWithApplication() {
@@ -74,11 +74,11 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-//        if (!PermissionUtil.isAllPermissionGranted(this)) {
-//            PermissionUtil.createPermissionDialog(this, true).show();
-//        } else {
-//           continueWithApplication();
-//        }
+        if (!PermissionUtil.isAllPermissionGranted(this)) {
+            PermissionUtil.createPermissionDialog(this, true).show();
+        } else {
+            continueWithApplication();
+        }
         super.onResume();
     }
 
