@@ -17,44 +17,30 @@ import android.view.View;
 import android.widget.Button;
 
 import com.android.volley.Response;
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.estimote.sdk.SystemRequirementsChecker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.teamj.joseguaman.bespeapp.adapter.ViewPagerAdapter;
-import com.teamj.joseguaman.bespeapp.estimote.BeaconID;
 import com.teamj.joseguaman.bespeapp.fragments.ChildTabFragment;
-import com.teamj.joseguaman.bespeapp.fragments.ParentTabFragment;
 import com.teamj.joseguaman.bespeapp.fragments.dialog.InfoAppDialog;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.Area;
-import com.teamj.joseguaman.bespeapp.modelo.beacon.AreaBeacon;
-import com.teamj.joseguaman.bespeapp.modelo.beacon.Beacon;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.WSResponse;
 import com.teamj.joseguaman.bespeapp.utils.Constants;
-import com.teamj.joseguaman.bespeapp.webService.AreaBeaconRestClient;
 import com.teamj.joseguaman.bespeapp.utils.PreferencesShare;
 import com.teamj.joseguaman.bespeapp.webService.AreaRestClient;
-import com.teamj.joseguaman.bespeapp.webService.NotificacionRestClient;
-import com.teamj.joseguaman.bespeapp.webService.BeaconRestClient;
-import com.teamj.joseguaman.bespeapp.webService.restClientBase.VolleyRequest;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    //    ParentTabFragment fragmentParent;
-//    private ProgressDialog mProgressDialog;
-    private List<Beacon> beaconList = new ArrayList<>();
-    private List<BeaconID> beaconIDEstimote = new ArrayList<>();
-    private List<AreaBeacon> areaBeaconList = new ArrayList<>();
     private PreferencesShare sharedPreferences;
-    StringBuilder beaconListString;
 
     @Nullable
     @BindView(R.id.tab_layout)
@@ -85,9 +71,9 @@ public class MainActivity extends AppCompatActivity {
         verificarModoNocturno();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getIDs();
         obtenerInformacionServidor();
+        verificarBotonesSigAnt();
     }
 
     @Override
@@ -111,8 +97,6 @@ public class MainActivity extends AppCompatActivity {
         } else if (item.getItemId() == android.R.id.home) {
             finish(); // close this activity and return to preview activity (if there is any)
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -121,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), this);
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
-
     }
 
     private void setEvents() {
@@ -139,50 +122,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-//    private void getIDs() {
-//        fragmentParent = (ParentTabFragment) this.getSupportFragmentManager().findFragmentById(R.id.fragmentParent);
-//    }
-
-//    private void obtenerInformacionServidor() {
-//        AreaRestClient lrc = new AreaRestClient(this);
-//        showProgressDialog("Beacons", "Cargando Información...");
-//        lrc.obtenerTodasAreasSinImagen(new Response.Listener<WSResponse>() {
-//            @Override
-//            public void onResponse(WSResponse response) {
-//                List<Area> listaAreas = new ArrayList<>();
-//                Gson gson = new Gson();
-//                TypeToken<List<Area>> token = new TypeToken<List<Area>>() {
-//                };
-//                listaAreas = gson.fromJson(response.getJsonEntity(), token.getType());
-//                loadInfo(listaAreas);
-//                hideProgressDialog();
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                hideProgressDialog();
-//                Log.e(TAG, error.toString());
-//            }
-//        });
-//
-//    }
-
-//    private void loadInfo(final List<Area> listaAreas) {
-//        for (int i = 0; i < listaAreas.size(); i++) {
-//            fragmentParent.addPage(listaAreas.get(i));
-//        }
-//    }
-
-//    public void showProgressDialog(String title, String message) {
-//        mProgressDialog = ProgressDialog.show(this, title, message, true, false);
-//    }
-//
-//    public void hideProgressDialog() {
-//        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-//            mProgressDialog.dismiss();
-//        }
-//    }
 
     @Override
     protected void onResume() {
@@ -254,8 +193,6 @@ public class MainActivity extends AppCompatActivity {
             addPage(listaAreas.get(i));
         }
         mAdapter.notifyDataSetChanged();
-        //if (mAdapter.getCount() > 0)
-
         setupTabLayout();
         setEvents();
 
@@ -291,6 +228,18 @@ public class MainActivity extends AppCompatActivity {
             btnViewAtras.setVisibility(View.VISIBLE);
             btnViewSiguiente.setVisibility(View.VISIBLE);
         }
+    }
+
+    @OnClick(R.id.image_right)
+    public void tabSiguiente() {
+        mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+        verificarBotonesSigAnt();
+    }
+
+    @OnClick(R.id.image_left)
+    public void tabAnterior() {
+        mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
+        verificarBotonesSigAnt();
     }
 }
 
