@@ -3,9 +3,6 @@ package com.teamj.joseguaman.bespeapp;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -35,12 +32,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    //    ParentTabFragment fragmentParent;
-//    private ProgressDialog mProgressDialog;
     private PreferencesShare sharedPreferences;
 
     @Nullable
@@ -72,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
         verificarModoNocturno();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getIDs();
         obtenerInformacionServidor();
+        verificarBotonesSigAnt();
     }
 
     @Override
@@ -98,8 +94,6 @@ public class MainActivity extends AppCompatActivity {
         } else if (item.getItemId() == android.R.id.home) {
             finish(); // close this activity and return to preview activity (if there is any)
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -108,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), this);
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
-
     }
 
     private void setEvents() {
@@ -126,50 +119,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-//    private void getIDs() {
-//        fragmentParent = (ParentTabFragment) this.getSupportFragmentManager().findFragmentById(R.id.fragmentParent);
-//    }
-
-//    private void obtenerInformacionServidor() {
-//        AreaRestClient lrc = new AreaRestClient(this);
-//        showProgressDialog("Beacons", "Cargando Información...");
-//        lrc.obtenerTodasAreasSinImagen(new Response.Listener<WSResponse>() {
-//            @Override
-//            public void onResponse(WSResponse response) {
-//                List<Area> listaAreas = new ArrayList<>();
-//                Gson gson = new Gson();
-//                TypeToken<List<Area>> token = new TypeToken<List<Area>>() {
-//                };
-//                listaAreas = gson.fromJson(response.getJsonEntity(), token.getType());
-//                loadInfo(listaAreas);
-//                hideProgressDialog();
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                hideProgressDialog();
-//                Log.e(TAG, error.toString());
-//            }
-//        });
-//
-//    }
-
-//    private void loadInfo(final List<Area> listaAreas) {
-//        for (int i = 0; i < listaAreas.size(); i++) {
-//            fragmentParent.addPage(listaAreas.get(i));
-//        }
-//    }
-
-//    public void showProgressDialog(String title, String message) {
-//        mProgressDialog = ProgressDialog.show(this, title, message, true, false);
-//    }
-//
-//    public void hideProgressDialog() {
-//        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-//            mProgressDialog.dismiss();
-//        }
-//    }
 
     @Override
     protected void onResume() {
@@ -241,8 +190,6 @@ public class MainActivity extends AppCompatActivity {
             addPage(listaAreas.get(i));
         }
         mAdapter.notifyDataSetChanged();
-        //if (mAdapter.getCount() > 0)
-
         setupTabLayout();
         setEvents();
 
@@ -278,6 +225,18 @@ public class MainActivity extends AppCompatActivity {
             btnViewAtras.setVisibility(View.VISIBLE);
             btnViewSiguiente.setVisibility(View.VISIBLE);
         }
+    }
+
+    @OnClick(R.id.image_right)
+    public void tabSiguiente() {
+        mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+        verificarBotonesSigAnt();
+    }
+
+    @OnClick(R.id.image_left)
+    public void tabAnterior() {
+        mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
+        verificarBotonesSigAnt();
     }
 }
 

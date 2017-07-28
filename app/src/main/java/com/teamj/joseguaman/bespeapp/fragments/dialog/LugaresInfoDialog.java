@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bluejamesbond.text.DocumentView;
 import com.teamj.joseguaman.bespeapp.R;
 import com.teamj.joseguaman.bespeapp.modelo.util.DialogInformacion;
+import com.teamj.joseguaman.bespeapp.utils.PreferencesShare;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -38,6 +39,7 @@ public class LugaresInfoDialog extends DialogFragment {
 
     private Unbinder unbinder;
     private DialogInformacion dialogInformacionRecibido;
+    private PreferencesShare sharedPreferences;
     private View view;
 
 
@@ -48,7 +50,13 @@ public class LugaresInfoDialog extends DialogFragment {
         view = inflater.inflate(R.layout.dialog_info_lugares, null);
         dialogInformacionRecibido = EventBus.getDefault().removeStickyEvent(DialogInformacion.class);
         unbinder = ButterKnife.bind(this, view);
+        sharedPreferences = new PreferencesShare(getContext());
         mContenido = (DocumentView) view.findViewById(R.id.blogText);
+        if (sharedPreferences.getModeNightApp()) {
+            //TODO: colocar color blanco en el texto
+        } else {
+            //TODO: dejar color normal en negro
+        }
         loadInformacion();
         builder.setView(view).setPositiveButton("Aceptar", null);
         builder.setCancelable(false);//evita que se cierre al presionar el back button
