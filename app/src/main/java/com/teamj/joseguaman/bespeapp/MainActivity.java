@@ -1,11 +1,11 @@
 package com.teamj.joseguaman.bespeapp;
 
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -17,27 +17,18 @@ import android.view.View;
 import android.widget.Button;
 
 import com.android.volley.Response;
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.estimote.sdk.SystemRequirementsChecker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.teamj.joseguaman.bespeapp.adapter.ViewPagerAdapter;
-import com.teamj.joseguaman.bespeapp.estimote.BeaconID;
 import com.teamj.joseguaman.bespeapp.fragments.ChildTabFragment;
-import com.teamj.joseguaman.bespeapp.fragments.ParentTabFragment;
 import com.teamj.joseguaman.bespeapp.fragments.dialog.InfoAppDialog;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.Area;
-import com.teamj.joseguaman.bespeapp.modelo.beacon.AreaBeacon;
-import com.teamj.joseguaman.bespeapp.modelo.beacon.Beacon;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.WSResponse;
 import com.teamj.joseguaman.bespeapp.utils.Constants;
-import com.teamj.joseguaman.bespeapp.webService.AreaBeaconRestClient;
 import com.teamj.joseguaman.bespeapp.utils.PreferencesShare;
 import com.teamj.joseguaman.bespeapp.webService.AreaRestClient;
-import com.teamj.joseguaman.bespeapp.webService.NotificacionRestClient;
-import com.teamj.joseguaman.bespeapp.webService.BeaconRestClient;
-import com.teamj.joseguaman.bespeapp.webService.restClientBase.VolleyRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,11 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     //    ParentTabFragment fragmentParent;
 //    private ProgressDialog mProgressDialog;
-    private List<Beacon> beaconList = new ArrayList<>();
-    private List<BeaconID> beaconIDEstimote = new ArrayList<>();
-    private List<AreaBeacon> areaBeaconList = new ArrayList<>();
     private PreferencesShare sharedPreferences;
-    StringBuilder beaconListString;
 
     @Nullable
     @BindView(R.id.tab_layout)
