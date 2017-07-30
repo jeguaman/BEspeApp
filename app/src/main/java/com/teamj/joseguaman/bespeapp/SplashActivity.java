@@ -44,14 +44,25 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
         mProgressView = findViewById(R.id.progressBar);
-        //continueWithApplication();
+
     }
 
     private void continueWithApplication() {
         if (!Tools.checkConnection(this)) {
             Snackbar.make(findViewById(android.R.id.content), "No posee conexión a internet.", Snackbar.LENGTH_LONG).show();
+            TimerTask task = new TimerTask() {
+                @Override
+                public void run() {
+                    finish();
+                }
+            };
+
+            // Simulate a long loading process on application startup.
+            Timer timer = new Timer();
+            timer.schedule(task, SPLASH_SCREEN_DELAY);
         } else {
-            // if (Tools.isHostRechable(Constants.getHostUrlAppNAME())) {
+            //TODO:
+//            if (Tools.isHostRechable(Constants.getHostUrlAppNAME())) {
             TimerTask task = new TimerTask() {
                 @Override
                 public void run() {
