@@ -30,4 +30,20 @@ public class BeaconRestClient extends RestClientBase {
         GsonRequest<WSResponse> request = new GsonRequest<>(Request.Method.POST, Constants.getURLBeaconsSinImagen(), WSResponse.class, header, params, listener, errorListener);
         executeRequest(request);
     }
+
+    public void obtenerTodosBeaconsAsociadosSinImagen(Response.Listener<WSResponse> listener, Response.ErrorListener errorListener) {
+        Map<String, String> params = new HashMap<>();
+        Map<String, String> header = new HashMap<>();
+
+        GsonRequest<WSResponse> request = new GsonRequest<>(Request.Method.POST, Constants.getURLBeaconsAsociadosSinImagen(), WSResponse.class, header, params, listener, errorListener);
+        executeRequest(request);
+    }
+
+    public void obtenerTodosBeaconsAsociadosEstimote(Response.Listener<WSResponse> listener, Response.ErrorListener errorListener) {
+        Map<String, String> params = new HashMap<>();
+        Map<String, String> header = new HashMap<>();
+
+        GsonRequest<WSResponse> request = new GsonRequest<>(Request.Method.POST, Constants.getURLBeaconsAsociadosEstimote(), WSResponse.class, header, params, listener, errorListener);
+        executeRequest(request);
+    }
 }

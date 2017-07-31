@@ -15,6 +15,12 @@ public class Notificacion implements Serializable {
     public Notificacion() {
     }
 
+    //Cuando no encuentra las 2 notificaciones en el servidor se utiliza este constructor
+    public Notificacion(String descripcion, String tipo) {
+        this.descripcion = descripcion;
+        this.tipo = tipo;
+    }
+
     public Notificacion(Area area, String descripcion, String tipo) {
         this.area = area;
         this.descripcion = descripcion;

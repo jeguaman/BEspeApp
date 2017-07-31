@@ -38,14 +38,6 @@ public class BeaconID {
         return minor;
     }
 
-    public int getClaveBase() {
-        return claveBase;
-    }
-
-    public void setClaveBase(int claveBase) {
-        this.claveBase = claveBase;
-    }
-
     public Region toBeaconRegion() {
         return new Region(toString(), getProximityUUID(), getMajor(), getMinor());
     }
