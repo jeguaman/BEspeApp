@@ -14,7 +14,8 @@ public class Constants {
     //casa
     //private static final String $URL = "http://192.168.2.58:8080";
     //biblioteca
-    private static final String $URL = "http://192.168.1.27:8080";
+    //private static final String $URL = "http://192.168.43.66:8080";
+    private static final String $URL = "http://192.168.1.35:8080";
     private static String WEB_PATH = "/BeaconWS/webresources/ws";
     private static String APP_NAME = "/BeaconWS/";
 

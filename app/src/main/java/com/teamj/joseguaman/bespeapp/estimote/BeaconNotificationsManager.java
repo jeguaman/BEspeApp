@@ -14,6 +14,7 @@ import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.Region;
 import com.google.gson.Gson;
 import com.teamj.joseguaman.bespeapp.MainActivity;
+import com.teamj.joseguaman.bespeapp.R;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.Registro;
 import com.teamj.joseguaman.bespeapp.modelo.beacon.WSResponse;
 import com.teamj.joseguaman.bespeapp.utils.PreferencesShare;
@@ -130,8 +131,8 @@ public class BeaconNotificationsManager {
                 context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-                .setSmallIcon(android.R.drawable.ic_dialog_info)
-                .setContentTitle("Beacon Notifications")
+                .setSmallIcon(R.drawable.white)
+                .setContentTitle("Willana Be")
                 .setContentText(message)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
